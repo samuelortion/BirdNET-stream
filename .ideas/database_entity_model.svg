@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 297 210"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="database_entity_model.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.69121632"
+     inkscape:cx="537.45838"
+     inkscape:cy="237.26292"
+     inkscape:window-width="960"
+     inkscape:window-height="1011"
+     inkscape:window-x="20"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="60.967851"
+       y="72.660463"
+       width="459.41278"
+       height="328.1489"
+       id="rect1143" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1129">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-dasharray:none"
+         id="rect131"
+         width="65.246124"
+         height="55.045082"
+         x="43.106831"
+         y="41.155899" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.515115;stroke-dasharray:none"
+         id="rect811"
+         width="65.240868"
+         height="19.126961"
+         x="43.155922"
+         y="41.253414" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20.4379px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:2.89671;stroke-dasharray:none"
+       x="85.102234"
+       y="196.65274"
+       id="text975"><tspan
+         sodipodi:role="line"
+         id="tspan973"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20.4379px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:2.89672"
+         x="85.102234"
+         y="196.65274">birdnet_stream_db</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.499999;stroke-dasharray:none"
+       x="61.804199"
+       y="53.257435"
+       id="text1105"><tspan
+         sodipodi:role="line"
+         id="tspan1103"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.5"
+         x="61.804199"
+         y="53.257435">taxon</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.499999;stroke-dasharray:none"
+       x="48.997536"
+       y="66.91153"
+       id="text1133"><tspan
+         sodipodi:role="line"
+         id="tspan1131"
+         style="stroke-width:0.5"
+         x="48.997536"
+         y="66.91153"># taxon_id</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.5"
+         x="48.997536"
+         y="73.967079"
+         id="tspan1135">scientific_name</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.5"
+         x="48.997536"
+         y="81.022629"
+         id="tspan1137">common_name</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.5"
+         x="48.997536"
+         y="88.078178"
+         id="tspan1139" /></text>
+    <g
+       id="g1129-8"
+       transform="matrix(0.99211666,0,0,1.3173149,104.43433,-21.334123)">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-dasharray:none"
+         id="rect131-9"
+         width="65.246124"
+         height="55.045082"
+         x="43.106831"
+         y="41.155899" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.434779;stroke-dasharray:none"
+         id="rect811-7"
+         width="65.333549"
+         height="13.606859"
+         x="43.109581"
+         y="41.208733" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.499999;stroke-dasharray:none"
+       x="161.55785"
+       y="46.174801"
+       id="text1105-3"><tspan
+         sodipodi:role="line"
+         id="tspan1103-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.5"
+         x="161.55785"
+         y="46.174801">observation</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.46175px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.483816;stroke-dasharray:none"
+       x="148.6974"
+       y="61.234417"
+       id="text1133-1"
+       transform="scale(1.0338021,0.96730317)"><tspan
+         sodipodi:role="line"
+         id="tspan1131-2"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="61.234417"># observation_id</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="68.061607"
+         id="tspan1135-9">taxon_id</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="74.888802"
+         id="tspan1310">locality_id</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="81.715988"
+         id="tspan1312">date</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="88.543182"
+         id="tspan1314">time</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="95.370377"
+         id="tspan1316">notes</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.483817"
+         x="148.6974"
+         y="102.19757"
+         id="tspan1139-1">confidence</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text1141"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.3333px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1143);display:inline;fill:none;stroke:#000000;stroke-width:1.88976;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Latin Modern Mono';-inkscape-font-specification:'Latin Modern Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.499999;stroke-dasharray:none"
+       x="158.23474"
+       y="72.990105"
+       id="text1306"><tspan
+         sodipodi:role="line"
+         id="tspan1304"
+         style="stroke-width:0.5"
+         x="158.23474"
+         y="72.990105" /></text>
+  </g>
+</svg>
