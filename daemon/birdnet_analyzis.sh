@@ -39,35 +39,32 @@ check_prerequisites() {
                     mkdir -p "${CHUNK_FOLDER}/out"
                 fi
             fi
-            fi
         fi
     fi
-    if [[ -z ${SPECIES_LIST} ]]; 
-    then
+    if [[ -z ${SPECIES_LIST} ]]; then
         echo "SPECIES_LIST is not set"
         exit 1
     fi
-    if [[ -f $PYTHON_EXECUTABLE ]];
-    then
+    if [[ -f ${PYTHON_EXECUTABLE} ]]; then
         if $verbose; then
-            echo "Python executable found: $PYTHON_EXECUTABLE"
+            echo "Python executable found: ${PYTHON_EXECUTABLE}"
         fi
     else
-        echo "Python executable not found: $PYTHON_EXECUTABLE"
+        echo "Python executable not found: ${PYTHON_EXECUTABLE}"
         exit 1
     fi
 }
 
 # Get array of audio chunks to be processed
 get_chunk_list() {
-    find "$CHUNK_FOLDER/in" -type f -name '*.wav' -exec basename {} \; ! -size 0 | sort 
+    find "${CHUNK_FOLDER}/in" -type f -name '*.wav' -exec basename {} \; ! -size 0 | sort
 }
 
 # Perform audio chunk analysis on one chunk
 analyze_chunk() {
     chunk_name=$1
-    chunk_path="$CHUNK_FOLDER/in/$chunk_name"
-    output_dir="$CHUNK_FOLDER/out/$chunk_name.d"
+    chunk_path="${CHUNK_FOLDER}/in/$chunk_name"
+    output_dir="${CHUNK_FOLDER}/out/$chunk_name.d"
     mkdir -p "$output_dir"
     date=$(echo $chunk_name | cut -d'_' -f2)
     week=$(./daemon/weekof.sh $date)
@@ -78,8 +75,8 @@ analyze_chunk() {
 analyze_chunks() {
     for chunk_name in $(get_chunk_list); do
         analyze_chunk $chunk_name
-        chunk_path="$CHUNK_FOLDER/in/$chunk_name"
-        mv $chunk_path "$CHUNK_FOLDER/out/$chunk_name"
+        chunk_path="${CHUNK_FOLDER}/in/$chunk_name"
+        mv $chunk_path "${CHUNK_FOLDER}/out/$chunk_name"
     done
 }
 

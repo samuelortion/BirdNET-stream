@@ -1,3 +1,7 @@
 var/
 /.venv/
 /analyzer/
+
+.env
+
+species_list.txt

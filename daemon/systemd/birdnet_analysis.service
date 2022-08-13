@@ -1,0 +1,15 @@
+# Launch BirdNET-Analyzer on the previously recorded audio chunks
+
+[Unit]
+Description=BirdNET-stream Analyzis
+
+[Service]
+User=$USER
+Group=$USER
+ExecStart=/home/$USER/BirdNET-Analyzer/deamon/birdnet_analysis.sh
+Restart=always
+RestartSec=3
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
