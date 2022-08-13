@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h2>{{ "About" | trans }}</h2>
+    <p>{{ "BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI." | trans }}</p>
+    <p>{{ "It aims to be able to run on any computer with a microphone." | trans }}</p>
+    <h3>{{ "Author" | trans }}</h3>
+    <p>{{ "This project is made with &hearts; by Samuel ORTION." | trans | raw }}</p>
+    <h3>{{ "License" | trans }}</h3>
+    <p>{{ "BirdNET-stream is licensed under the" | trans }} 
+        <span class="license">
+        <a href="https://www.gnu.org/licenses/gpl-3.0.html">
+        GNU General Public License v3 or later</a>
+        </span>.
+    </p>
+    <p>{{ "BirdNET-Analyzer, on which this project relies, is licensed under" | trans }}
+        <span class="license">
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+            Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+        </a>
+        </span>.
+    </p>
+{% endblock %}

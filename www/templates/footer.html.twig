@@ -1,0 +1,12 @@
+<footer>
+    <p>
+        &copy; <span class="creation-date">2022
+        <!-- check if the current year is the same as the creation year --> 
+        {% set year = "now" | date("Y")  %}
+        {% if year != "2022" %}
+            - {{ year }}
+        {% endif %}
+        </span>
+        <a href="https://samuel.ortion.fr/">Samuel ORTION</a>
+    </p>
+</footer>

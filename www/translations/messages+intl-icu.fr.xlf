@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target>À propos</target>
+      </trans-unit>
+      <trans-unit id="VAw_dLX" resname="BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.">
+        <source>BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.</source>
+        <target>BirdNET-stream est un logiciel d'analyse en temps réel de l'environement sonore basé sur BirdNET.</target>
+      </trans-unit>
+      <trans-unit id="vvz1r3A" resname="It aims to be able to run on any computer with a microphone.">
+        <source>It aims to be able to run on any computer with a microphone.</source>
+        <target>Il cherche à être fonctionnel sur tout ordinateur équipé d'un microphone.</target>
+      </trans-unit>
+      <trans-unit id="2VCCou5" resname="Author">
+        <source>Author</source>
+        <target>Auteur</target>
+      </trans-unit>
+      <trans-unit id="1zd9FJ_" resname="This project is made with &amp;hearts; by Samuel ORTION.">
+        <source>This project is made with &amp;hearts; by Samuel ORTION.</source>
+        <target><![CDATA[Ce projet est fait avec &hearts; par Samuel ORTION]]></target>
+      </trans-unit>
+      <trans-unit id="wBHWCXv" resname="License">
+        <source>License</source>
+        <target>Licence</target>
+      </trans-unit>
+      <trans-unit id="6AM7sRb" resname="BirdNET-stream is licensed under the">
+        <source>BirdNET-stream is licensed under the</source>
+        <target>BirdNET-stream est sous licence</target>
+      </trans-unit>
+      <trans-unit id="nNkktM9" resname="BirdNET-Analyzer, on which this project relies, is licensed under">
+        <source>BirdNET-Analyzer, on which this project relies, is licensed under</source>
+        <target>BirdNET-Analyzer, sur qui ce projet repose, est sous licence</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
