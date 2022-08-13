@@ -28,9 +28,9 @@ mem() {
     string=$2
     substring=$1
     if [[ "$string" == *"$substring"* ]]; then
-        echo "true"
+        true
     else
-        echo "false"
+        false
     fi
 }
 
@@ -49,7 +49,7 @@ junk() {
     # Get all empty treatment directories
     junk="$junk $(find ${CHUNK_FOLDER}/out -type d -empty)"
     # Get all empty record directories
-    treatement_folder=$(find "${CHUNK_FOLDER}/out" -type d ! -empty)
+    treatement_folder=$(find "${CHUNK_FOLDER}/out/*" -type d ! -empty)
     if [[ ! -z ${treatement_folder} ]]; then
         for folder in $treatement_folder; do
             echo $folder

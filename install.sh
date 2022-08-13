@@ -43,12 +43,12 @@ install_birdnetstream() {
     workdir=$(pwd)
     if [ -d "$workdir/BirdNET-stream" ]; then
         debug "BirdNET-stream is already installed"
-        return
+    else
+        # Clone BirdNET-stream
+        debug "Cloning BirdNET-stream from $REPOSITORY"
+        git clone --recurse-submodules $REPOSITORY
+        # Install BirdNET-stream
     fi
-    # Clone BirdNET-stream
-    debug "Cloning BirdNET-stream from $REPOSITORY"
-    git clone --recurse-submodules $REPOSITORY
-    # Install BirdNET-stream
     cd BirdNET-stream
     debug "Creating python3 virtual environment '$PYTHON_VENV'"
     python3 -m venv $PYTHON_VENV

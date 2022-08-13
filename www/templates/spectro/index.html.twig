@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h2>{{ "Spectrogram"  | trans }}</h2>
+    <div>
+        <button id="spectro-button">{{ "Launch Live Spectrogram" | trans }}</button>
+        <canvas id="spectro-canvas"></canvas>
+    </div>
+{% endblock %}
