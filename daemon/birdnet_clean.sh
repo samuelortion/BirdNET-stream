@@ -50,11 +50,14 @@ junk() {
     junk="$junk $(find ${CHUNK_FOLDER}/out -type d -empty)"
     # Get all empty record directories
     treatement_folder=$(find "${CHUNK_FOLDER}/out" -type d ! -empty)
-    for folder in $treatement_folder; do
-        if ! $(mem $folder $junk) && $(no_bird_in_model_output $folder); then
-            junk="$junk $folder"
-        fi
-    done
+    if [[ ! -z ${treatement_folder} ]]; then
+        for folder in $treatement_folder; do
+            echo $folder
+            if ! $(mem $folder $junk) && $(no_bird_in_model_output $folder); then
+                junk="$junk $folder"
+            fi
+        done
+    fi
     echo "$junk"
 }
 

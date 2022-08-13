@@ -1,9 +1,38 @@
 #! /usr/bin/env bash
 
-record_chunk() {
+DEBUG=${DEBUG:-0}
+
+export PULSE_RUNTIME_PATH="/run/user/$(id -u)/pulse/"
+
+debug() {
+    if [ $DEBUG -eq 1 ]; then
+        echo "$1"
+    fi
+}
+
+check_folder() {
+    if [[ ! -d "${CHUNK_FOLDER}" ]]; then
+        debug "CHUNK_FOLDER does not exist: ${CHUNK_FOLDER}"
+        debug "Creating recording dir"
+        mkdir -p "${CHUNK_FOLDER}/in"
+    fi
+}
+
+record_loop() {
     DEVICE=$1
     DURATION=$2
-    ffmpeg -f pulse -i ${DEVICE} -t ${DURATION} -vn -acodec pcm_s16le -ac 1 -ar 48000 file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+    debug "New recording loop."
+    while true; do
+        record $DEVICE $DURATION
+    done
+}
+
+
+record() {
+    DEVICE=$1
+    DURATION=$2
+    debug "Recording from $DEVICE for $DURATION seconds"
+    echo "" | ffmpeg -nostdin -f pulse -i ${DEVICE} -t ${DURATION} -vn -acodec pcm_s16le -ac 1 -ar 48000 file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
 config_filepath="./config/analyzer.conf"
@@ -15,6 +44,8 @@ else
     exit 1
 fi
 
+check_folder
+
 [ -z $RECORDING_DURATION ] && RECORDING_DURATION=15
 
 if [[ -z $AUDIO_DEVICE ]]; then
@@ -22,16 +53,4 @@ if [[ -z $AUDIO_DEVICE ]]; then
     exit 1
 fi
 
-check_folder() {
-    if [[ ! -d "${CHUNK_FOLDER}" ]]; then
-        echo "CHUNK_FOLDER does not exist: ${CHUNK_FOLDER}"
-        echo "Creating recording dir"
-        mkdir -p "${CHUNK_FOLDER}/in"
-    fi
-}
-
-check_folder
-
-while true; do
-    record_chunk $AUDIO_DEVICE $RECORDING_DURATION
-done
+record_loop $AUDIO_DEVICE $RECORDING_DURATION

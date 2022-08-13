@@ -15,7 +15,7 @@ BirdNET-stream record sound on Linux computer and analyze it with the help of th
 On debian based system, you can install BirdNET-stream with the following command:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/birdnet-stream/birdnet-stream/master/install.sh | bash
+curl -sL https://raw.githubusercontent.com/UncleSamulus/BirdNET-stream/main/install.sh | bash
 ```
 
 For finer control, or to adapt to your system, you can follow the instructions in the [INSTALL.md](./INSTALL.md) file.

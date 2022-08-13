@@ -6,7 +6,8 @@ Description=BirdNET-stream Analyzis
 [Service]
 User=$USER
 Group=$USER
-ExecStart=/home/$USER/BirdNET-Analyzer/deamon/birdnet_analysis.sh
+WorkingDirectory=$DIR
+ExecStart=bash ./daemon/birdnet_analyzis.sh
 Restart=always
 RestartSec=3
 Type=simple

@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-set -X
+# set -x
 set -e
 
 DEBUG=${DEBUG:-0}
@@ -23,7 +23,6 @@ debug() {
 }
 
 install_requirements() {
-    if 
     requirements=$1
     # Install requirements
     missing_requirements=""
@@ -40,6 +39,12 @@ install_requirements() {
 
 # Install BirdNET-stream
 install_birdnetstream() {
+    # Check if repo is not already installed
+    workdir=$(pwd)
+    if [ -d "$workdir/BirdNET-stream" ]; then
+        debug "BirdNET-stream is already installed"
+        return
+    fi
     # Clone BirdNET-stream
     debug "Cloning BirdNET-stream from $REPOSITORY"
     git clone --recurse-submodules $REPOSITORY
@@ -56,14 +61,44 @@ install_birdnetstream() {
 
 # Install systemd services
 install_birdnetstream_services() {
+    cd BirdNET-stream
+    DIR=$(pwd)
+    GROUP=$USER
+    echo $DIR
     debug "Setting up BirdNET stream systemd services"
-    sudo ln -s $PWD/BirdNET-stream/daemon/systemd/birdnet_recording.service /etc/systemd/system/birdnet_recording.service
-    sudo ln -s $PWD/BirdNET-stream/daemon/systemd/birdnet_analyzis.service /etc/systemd/system/birdnet_analyzis.service
+    services="birdnet_recording.service birdnet_analyzis.service"
+    for service in $services; do
+        sudo cp daemon/systemd/templates/$service /etc/systemd/system/
+        variables="DIR USER GROUP"
+        for variable in $variables; do
+            sudo sed -i "s|\$$variable|${!variable}|g" /etc/systemd/system/$service
+        done
+    done
     sudo systemctl daemon-reload
-    sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service
+    sudo systemctl enable --now $services
+}
+
+install_web_interface() {
+    debug "Setting up web interface"
+    install_requirements "nginx php php-fpm composer nodejs npm"
+    cd BirdNET-stream
+    cd www
+    debug "Creating nginx configuration"
+    cp nginx.conf /etc/nginx/sites-available/birdnet-stream.conf
+    sudo ln -s /etc/nginx/sites-available/birdnet-stream.conf /etc/nginx/sites-enabled/birdnet-stream.conf
+    sudo systemctl enable --now nginx
+    sudo systemctl restart nginx
+    debug "Retrieving composer dependencies"
+    composer install
+    debug "Installing nodejs dependencies"
+    sudo npm install -g yarn
+    yarn build
+    debug "Building assets"
+    debug "Web interface is available"
 }
 
 main() {
+    # update
     install_requirements $REQUIREMENTS
     install_birdnetstream
     install_birdnetstream_services

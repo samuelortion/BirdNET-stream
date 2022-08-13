@@ -4,9 +4,10 @@
 Description=BirdNET-stream recording
 
 [Service]
-User=1000
-Group=1000
-ExecStart="bash /home/$USER/BirdNET-stream/daemon/birdnet_recording.sh"
+User=$USER
+Group=$DIR
+WorkingDirectory=$DIR
+ExecStart=bash ./daemon/birdnet_recording.sh"
 Restart=always
 RestartSec=3
 Type=simple
