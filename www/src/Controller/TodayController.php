@@ -21,6 +21,7 @@ class TodayController extends AbstractController
         $this->connection = $connection;
         $date = date('Y-m-d');
         return $this->render('today/index.html.twig', [
+            "date" => $date,
             "species" => $this->recorded_species_by_date($date),
         ]);
     }
@@ -33,6 +34,7 @@ class TodayController extends AbstractController
         $this->connection = $connection;
         $date = date('Y-m-d');
         return $this->render('today/index.html.twig', [
+            "date" => $date,
             "species" => $this->recorded_species_by_date($date)
         ]);
     }
@@ -45,6 +47,7 @@ class TodayController extends AbstractController
         $this->connection = $connection;
         $date = date('Y-m-d');
         return $this->render('today/species.html.twig', [
+            "date" => $date,
             "results" => $this->recorded_species_by_id_and_date($id, $date)
         ]);
     }
