@@ -4,9 +4,9 @@
 Description=BirdNET-stream Analyzis
 
 [Service]
-User=$USER
-Group=$USER
-WorkingDirectory=$DIR
+User=<USER>
+Group=<USER>
+WorkingDirectory=<DIR>
 ExecStart=bash ./daemon/birdnet_analyzis.sh
 Restart=always
 RestartSec=3

@@ -1,0 +1,9 @@
+[Unit]
+Description=BirdNET-stream miner Timer
+
+[Timer]
+OnCalendar=*-*-* *:00
+Unit=birdnet_miner.service
+
+[Install]
+WantedBy=basic.target

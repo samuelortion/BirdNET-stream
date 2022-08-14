@@ -2,9 +2,10 @@
 # Extract observations from a model output folder
 #
 
-DEBUG=${DEBUG:-0}
+DEBUG=${DEBUG:-1}
 
 set -e
+# set -x
 
 debug() {
     if [ $DEBUG -eq 1 ]; then
@@ -40,7 +41,7 @@ if [[ -z ${LONGITUDE} ]]; then
 fi
 
 model_outputs() {
-    find -name "model.out.csv" -type f ! -empty
+    ls ${CHUNK_FOLDER}/out/*/model.out.csv
 }
 
 source_wav() {
@@ -59,10 +60,10 @@ record_datetime() {
     MM=$(echo $record_date | cut -c 5-6)
     DD=$(echo $record_date | cut -c 7-8)
     HH=$(echo $record_time | cut -c 1-2)
-    MM=$(echo $record_time | cut -c 3-4)
+    MI=$(echo $record_time | cut -c 3-4)
     SS=$(echo $record_time | cut -c 5-6)
     SSS="000"
-    date="$YYYY-$MM-$DD $HH:$MM:$SS.$SSS"
+    date="$YYYY-$MM-$DD $HH:$MI:$SS.$SSS"
     echo $date
 }
 
@@ -102,15 +103,15 @@ save_observations() {
             debug "Observation already exists: $source_audio, $start, $end, $taxon_id, $location_id"
             exit 1
         else
-            debug "Inserting observation: $source_audio, $start, $end, $taxon_id, $location_id"
+            debug "Inserting observation: $source_audio, $start, $end, $taxon_id, $location_id, $datetime"
             insert_observation "$source_audio" "$start" "$end" "$taxon_id" "$location_id" "$confidence" "$datetime"
         fi
     done
 }
 
 main() {
-    # Remove all junk observations
-    ./daemon/birdnet_clean.sh
+    # # Remove all junk observations
+    # ./daemon/birdnet_clean.sh
     # Get model outputs
     for model_output in $(model_outputs); do
         save_observations $model_output
