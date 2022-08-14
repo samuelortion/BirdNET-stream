@@ -24,7 +24,7 @@ header img#logo {
 }
 
 main {
-    min-height: 80vh;
+    min-height: 100vh;
     padding: 5em;
 }
 
@@ -51,14 +51,14 @@ nav ul {
     justify-content: space-between;
     align-items: center;
 
-    background-color: lightgreen;
-    margin: 0;
-    padding: 0;
+    background-color: #333;
+    margin: auto;
+    min-width: 100vw;
 }
 
 nav ul li a,
 .dropdown-button {
-    color: green;
+    color: white;
     text-decoration: none;
     display: block;
     padding: 1em 0.5em;
@@ -66,7 +66,13 @@ nav ul li a,
 
 nav ul li a.active,
 nav ul li a:hover {
-    background-color: aquamarine;
+    background-color: #999;
+    color: #101010
+}
+
+.dropdown-button:hover {
+    background-color: #900;
+    color: white
 }
 
 .dropdown:hover .dropdown-content {
@@ -76,7 +82,6 @@ nav ul li a:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -86,4 +91,8 @@ canvas {
     display: block;
     height: 100%;
     width: 100%;
+}
+
+.scientific-name {
+    font-style: italic;
 }

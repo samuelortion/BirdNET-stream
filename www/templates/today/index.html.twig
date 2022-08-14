@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h2>{{ "Today's Detected Species" | trans }}</h2>
+    {# Display a list of records if any, else, print message #}
+    {% if results[0] is defined and results[0] | length > 0 %}
+        <ul>
+            {% for sp in results %}
+            <li class="species">
+                <a href="./species/{{ sp['taxon_id'] }}">
+                    <span class="scientific-name">{{ sp["scientific_name"] }} (</span><span class="common-name">{{ sp["common_name"] }}</span>)
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html.twig" %}
+
+{% block content %}    
+    {% if results is defined and results | length > 0 %}
+        {% set taxon = results["taxon"] %}
+        <h2>
+            {% set today = "now" | date("Y-m-d") %}
+            {% if today == date %}
+                {{ "Today's contact for" | trans }} 
+            {% else %}
+                {{ "Contact on " | trans }}
+                {{ date | format_datetime("full", "none") }}
+                {{ " for " | trans }}
+            {% endif %}
+            <span class="scientific-name">
+                {{ taxon["scientific_name"] }}
+            </span> 
+            (<span class="common-name">
+                {{ taxon["common_name"] }}
+            </span>)
+        </h2>
+        <div class="stats">
+            {% set stat = results["stat"][0] %}
+            <h3>{{ "Stats" | trans }}</h3>
+            <div class="contact-count">
+            {{ "Contact count:" | trans }} 
+            <span class="counter">{{ stat["contact_count"] }}</span>
+            </div>
+            <div class="contact-confidence">
+                {{ "Max confidence" | trans }}
+                <span class="value">{{ stat["max_confidence"] }}</span>
+            </div>
+        </div>
+        {% set records = results["records"] %}
+        <div class="records">
+            <h3>{{ "Contact records" | trans }}</h3>
+            {% if records is defined and records | length > 0 %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ "Filename" | trans }}</th>
+                            <th>{{ "Time" | trans }}</th>
+                            <th>{{ "Confidence" | trans }}</th>
+                            <th>{{ "Audio" | trans }}</th>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                            <tr>
+                                <td>
+                                    <a title="{{ "Download audio file" | trans }}" href="/media/records/{{ record['audio_file'] }}">
+                                    {{ record["audio_file"] }}
+                                    </a>
+                                </td>
+                                <td>{{ record["date"] | date("H:m") }}</td>
+                                <td>{{ record["confidence"] }}</td>
+                                <td>
+                                    <audio controls>
+                                        <source src="/media/records/{{ record['audio_file'] }}" type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{{ "No records this day for this species" | trans }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+{% endblock %}
