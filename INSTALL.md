@@ -13,6 +13,7 @@ curl -sL https://raw.githubusercontent.com/birdnet-stream/birdnet-stream/master/
 - git
 - ffmpeg
 - python3
+- sqlite3
 
 ## Install process
 
@@ -44,3 +45,100 @@ source .venv/birdnet-stream
 
 pip install -r requirements.txt
 ```
+
+### Setup systemd services
+
+```bash
+# Copy and Adapt templates
+services="birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer birdnet_miner.service"
+read -r -a services_array <<<"$services"
+for service in ${services_array[@]}; do
+    sudo cp daemon/systemd/templates/$service /etc/systemd/system/
+    variables="DIR USER GROUP"
+    for variable in $variables; do
+        sudo sed -i "s|<$variable>|${!variable}|g" /etc/systemd/system/$service
+    done
+done
+# Enable services
+sudo systemctl daemon-reload
+sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer
+```
+
+#### Check if services are working
+    
+```bash
+# Sercices status
+sudo systemctl status birdnet_recording.service birdnet_analyzis.service
+# Timers status
+sudo systemctl status birdnet_miner.timer
+```
+
+```bash
+# BirdNET-stream logs
+sudo journalctl -feu {birdnet_recording,birdnet_analyzis}.service
+```
+
+## Setup BirdNET-stream symfony webapp
+
+### Install php 8.1
+
+```bash
+# Remove previously installed php version
+sudo apt remove --purge php*
+# Install required packages for php
+sudo apt install -y lsb-release ca-certificates apt-transport-https software-properties-common gnupg2
+# Get php package from sury repo
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+sudo wget -qO - https://packages.sury.org/php/apt.gpg | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/debian-php-8.gpg --import
+sudo chmod 644 /etc/apt/trusted.gpg.d/debian-php-8.gpg
+sudo apt update && sudo apt upgrade -y
+sudo apt install php8.1
+# Install and enable php-fpm
+sudo apt install php8.1-fpm
+sudo systemctl enable php8.1-fpm
+# Install php packages
+sudo apt-get install php8.1-{sqlite3,curl,intl}
+```
+
+### Install composer
+
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"\nphp -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"\nphp composer-setup.php\nphp -r "unlink('composer-setup.php');"
+sudo mv /composer.phar /usr/local/bin/composer
+```
+
+### Install webapp packages
+
+```bash
+cd www
+composer install
+```
+
+### Install nodejs and npm
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
+
+```bash
+nvm install 16
+nvm use 16
+```
+
+```bash
+sudo dnf install npm
+```
+
+```bash
+sudo npm install -g yarn
+```
+
+```bash
+yarn build
+```
+
+
+
