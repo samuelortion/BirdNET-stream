@@ -7,3 +7,5 @@ var/
 species_list.txt
 
 push.sh
+
+config/analyzer.conf

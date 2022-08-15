@@ -1,0 +1,23 @@
+# Configuration file for BirdNET Analyzer
+
+# Coordinates of the recorder
+LATITUDE="47.87842"
+LONGITUDE="0.21826"
+# Species selection list
+SPECIES_LIST="./config/species_list.txt"
+# Minimal confidence threshold
+CONFIDENCE=0.1
+# Recording duration (in seconds)
+RECORDING_DURATION=15
+RECORDING_AMPLIFICATION=1.5
+# Chunk folder location
+CHUNK_FOLDER="./var/chunks"
+# Audio recording device (pulseaudio)
+AUDIO_DEVICE="default"
+# Virtual env for BirdNET AI with required packages
+PYTHON_VENV="./.venv/birdnet-stream"
+# Database location
+DATABASE="./var/db.sqlite"
+
+DAEMON_USER="birdnet"
+DAEMON_PASSWORD="secret"

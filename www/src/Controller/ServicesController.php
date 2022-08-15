@@ -66,7 +66,7 @@ class ServicesController extends AbstractController
 
     private function systemd_service_status($service) 
     {
-        $command = "systemctl is-active ".$service;
+        $command = "systemctl is-active birdnet_".$service.".service";
         $result = shell_exec($command);
         return $result;
     }

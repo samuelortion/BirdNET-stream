@@ -18,18 +18,17 @@
 	</head>
 	<body>
 		{% block body %}
-			<div class="above">
-				{% include "menu.html.twig" %}
-			</div>
-			<div class="behind">
-				<header></header>
-				<main>
-					{% block content %}
-						<p>Welcome to BirdNET-stream !</p>
-					{% endblock %}
-				</main>
-				{% include "footer.html.twig" %}
-			</div>
+			{% include "menu.html.twig" %}
+			<header>
+				<img class="logo" src="/media/logo.svg" alt="BirdNET logo">
+				<h1>BirdNET-stream</h1>
+			</header>
+			<main>
+				{% block content %}
+					<p>Welcome to BirdNET-stream !</p>
+				{% endblock %}
+			</main>
+			{% include "footer.html.twig" %}
 		{% endblock %}
 	</body>
 </html>

@@ -5,11 +5,12 @@
 		{{ "Services status" | trans }}
 	</h2>
     {% if status is defined and status | length > 0 %}
-		<ul id="statuses">
+		<ul id="statuses" class="container column">
 			{% for service in status %}
-				<li>
-					<span class="name">{{ service["name"] }}</span>
-					<span class="status"><span class="bullet {{ service["status"] }}"></span>{{ service["status"] }}</span>
+				<li class="grid">
+					<div class="col status bullet {{ service["status"] }}"></div>
+					<div class="col name">{{ service["name"] }}</div>
+					<div class="col status">{{ service["status"] }}</div>
 				</li>
 			{% endfor %}
 		</ul>

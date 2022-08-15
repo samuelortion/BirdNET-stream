@@ -8,12 +8,20 @@
     position: relative;
 }
 
-.column {
+.container.col {
     flex-direction: column;
 }
 
-.row {
+.container.row {
     flex-direction: row;
+}
+
+.grid {
+    display: grid;
+}
+
+.grid > * {
+    padding-left: 0.1em;
 }
 
 .behind {
@@ -102,39 +110,35 @@ canvas {
     width: 100%;
 }
 
-#statuses {
-    display: flex;
-    flex-direction: column;
-}
-
 #statuses li {
     list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
 }
 
-.status .bullet {
+#statuses .grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+    gap: 0.1em;
+}
+
+.status.bullet {
     border-radius: 50%;
     background-color: #999;
     width: 1em;
     height: 1em;
     display: inline-block;
     position: relative;
-    top: 0.15em;
-    margin-right: 0.5em;
-    margin-left: 0.5em;
+    top: 0.4em;
 }
 
-.status.active .bullet {
+.status.active.bullet {
     background-color: #090;
 }
 
-.status.inactive .bullet {
+.status.inactive.bullet {
     background-color: #900;
 }
-
 
 @media screen and (max-width: 700px) {
     main {
