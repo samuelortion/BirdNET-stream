@@ -1,0 +1,7 @@
+<div class="dataviz">
+    {% if charts is defined and charts | length > 0 %}
+        <img src="/media/charts/{{ charts }}" alt="{{ "Frequency charts" | trans }}">
+    {% else %}
+        <p>{{ "No charts available" | trans }}</p>
+    {% endif %}
+</div>

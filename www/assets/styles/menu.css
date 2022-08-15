@@ -1,0 +1,129 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    --nav-width: 20em;
+}
+
+.toggler{
+    z-index:2;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.hamburger{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    padding: 0.6rem;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.hamburger > div{
+    position: relative;
+    top: 0;
+    left: 0;
+    background: black;
+    height: 2px;
+    width: 75%;
+    transition: all  0.4s ease;
+    color: #000;
+
+}
+
+.hamburger > div::before,
+.hamburger > div::after{
+    content: '';
+    position: absolute;
+    top: -7px;
+    background: black;
+    width: 100%;
+    height: 2px;
+    transition: all  0.4s ease;
+}
+
+.hamburger > div::after{
+    top: 7px;
+}
+
+.toggler:checked + .hamburger > div{
+    background: rgba(0,0,0,0);
+}
+
+.toggler:checked + .hamburger > div::before{
+    top: 0;
+    transform: rotate(45deg);
+    background: black;
+}
+
+.toggler:checked + .hamburger > div::after{
+    top: 0;
+    transform: rotate(135deg);
+    background: black;
+}
+
+.menu{
+    height: 100vh;
+    width: 0;
+    visibility: hidden;
+}
+
+.toggler:checked ~ .menu{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 1)!important;
+}
+
+.menu > ul{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 0;
+    height: 100vmax;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 2em;
+    visibility: hidden;
+    background-color: white;
+    z-index: 1;
+}
+
+.menu > ul > li{
+    list-style: none;
+    padding: 0.5rem;
+}
+
+.menu > ul > li > a{
+    color: black;
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+.toggler:checked ~ .fill  {
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--nav-width);
+}
+
+.toggler:checked ~ .menu > ul{
+    width: 20em;
+    transition: fit-content .5s ease;
+    opacity: 1;
+    transition: opacity .5s, visibility .5s, height .5s, width .5s;
+    visibility: visible;
+}
+
+.toggler:checked ~ .menu > ul > li > a:hover{
+    color: orange;
+}

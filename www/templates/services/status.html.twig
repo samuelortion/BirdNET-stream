@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h2>
+		{{ "Services status" | trans }}
+	</h2>
+    {% if status is defined and status | length > 0 %}
+		<ul id="statuses">
+			{% for service in status %}
+				<li>
+					<span class="name">{{ service["name"] }}</span>
+					<span class="status"><span class="bullet {{ service["status"] }}"></span>{{ service["status"] }}</span>
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>{{ "No status available" | trans }}</p>
+	{% endif %}
+{% endblock %}

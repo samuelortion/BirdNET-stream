@@ -1,5 +1,4 @@
 <?php
-// src/Controller/TodayController.php
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +17,7 @@ class TodayController extends AbstractController
      */
     public function today(Connection $connection)
     {
-        $this->connection = $connection;
-        $date = date('Y-m-d');
-        return $this->render('today/index.html.twig', [
-            "date" => $date,
-            "species" => $this->recorded_species_by_date($date),
-        ]);
+       return $this->redirectToRoute("today_species");
     }
 
     /**
@@ -35,7 +29,7 @@ class TodayController extends AbstractController
         $date = date('Y-m-d');
         return $this->render('today/index.html.twig', [
             "date" => $date,
-            "species" => $this->recorded_species_by_date($date)
+            "results" => $this->recorded_species_by_date($date),
         ]);
     }
 
@@ -92,7 +86,7 @@ class TodayController extends AbstractController
                 FROM observation 
                 INNER JOIN taxon 
                 ON observation.taxon_id = taxon.taxon_id 
-                WHERE strftime('%Y-%m-%d', `observation`.`date`) =:date 
+                WHERE strftime('%Y-%m-%d', `observation`.`date`) = :date 
                 GROUP BY observation.taxon_id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':date', $date);
@@ -107,7 +101,7 @@ class TodayController extends AbstractController
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id);
         $result = $stmt->executeQuery();
-        $taxon = $result->fetchAssociative();
+        $taxon = $result->fetchAllAssociative()[0];
         if (!$taxon) {
             return [];
         }

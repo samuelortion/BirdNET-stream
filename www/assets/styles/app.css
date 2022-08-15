@@ -2,15 +2,39 @@
     box-sizing: border-box;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.behind {
+    position: relative;
+    z-index: -1;
+}
+
+.above {
+    position: relative;
+    z-index: 1;
+}
+
 body {
     background-color: lightgray;
     margin: 0;
     padding: 0;
+    z-index: -10;
 }
 
 header {
     padding: 1em;
-    text-align: center;
     display: flex;
     flex-direction: row;
     /** Align text and center of image */
@@ -18,7 +42,7 @@ header {
     align-items: baseline;
 }
 
-header img#logo {
+header img.logo {
     width: 100px;
     height: 100px;
 }
@@ -26,6 +50,7 @@ header img#logo {
 main {
     min-height: 100vh;
     padding: 5em;
+    z-index: 0;
 }
 
 footer {
@@ -44,33 +69,7 @@ footer a:hover {
     font-style: italic;
 }
 
-nav ul {
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    background-color: #333;
-    margin: auto;
-    min-width: 100vw;
-}
-
-nav ul li a,
-.dropdown-button {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 1em 0.5em;
-}
-
-nav ul li a.active,
-nav ul li a:hover {
-    background-color: #999;
-    color: #101010
-}
-
-.dropdown-button:hover {
+/* .dropdown-button:hover {
     background-color: #900;
     color: white
 }
@@ -78,6 +77,7 @@ nav ul li a:hover {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+*/
 
 .dropdown-content {
     display: none;
@@ -95,4 +95,56 @@ canvas {
 
 .scientific-name {
     font-style: italic;
+}
+
+.dataviz img {
+    max-width: 100%;
+    width: 100%;
+}
+
+#statuses {
+    display: flex;
+    flex-direction: column;
+}
+
+#statuses li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.status .bullet {
+    border-radius: 50%;
+    background-color: #999;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    position: relative;
+    top: 0.15em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+.status.active .bullet {
+    background-color: #090;
+}
+
+.status.inactive .bullet {
+    background-color: #900;
+}
+
+
+@media screen and (max-width: 700px) {
+    main {
+        padding: 1em;
+    }
+}
+
+.overlay {
+    z-index: 10;
+    opacity: 100%;
+    background-color: rgba(255, 255, 255, 1);
+    position: relative;
 }

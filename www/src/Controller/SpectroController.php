@@ -1,5 +1,4 @@
 <?php
-// src/Controller/AboutController.php
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;

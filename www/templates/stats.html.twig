@@ -1,0 +1,42 @@
+<div id="stats">
+    <h2>Quick Stats</h2>
+    <ul>
+        <li class="most-recorded-species">
+            {{ "Most recorded species" | trans }}:
+            <span class="scientific-name">
+                {{ stats["most-recorded-species"]["scientific_name"] }}
+            </span>
+            (<span class="common_name">{{ stats["most-recorded-species"]["common_name"] }}</span>)
+            {{ "with" | trans }}
+            <span class="observation-count">
+                {{ stats["most-recorded-species"]["contact_count"] }}
+            </span>
+            {{ "contacts" | trans }}.
+        </li>
+        <li class="last-recorded-species">
+            {{ "Last detected species" | trans }}:
+            <span class="scientific-name">
+                {{ stats["last-detected-species"]["scientific_name"] }}
+            </span>
+            (<span class="common_name">{{ stats["last-detected-species"]["common_name"] }}</span>)
+            {{ "with" | trans }}
+            <span class="confidence">
+                {{ stats["last-detected-species"]["confidence"] }}
+            </span>
+            {{ "AI confidence" | trans }}
+            <span class="datetime">
+            {% set date = stats["last-detected-species"]["date"] %}
+            {% if  date | date("Y-m-d") == "now" | date("Y-m-d") %}
+                {{ "today" | trans }}
+            {% else %}
+                {{ "on" | trans }}
+                {{ date | format_datetime("full", "none") }}
+            {% endif %}
+            at 
+            <span class="time">
+                {{ date | date("H:i") }} 
+            </span>
+            </span>.
+        </li>
+    </ul>
+</div>
