@@ -119,7 +119,8 @@ class TodayController extends AbstractController
         $stat = $result->fetchAllAssociative();
         $sql = "SELECT * FROM `observation` 
                 WHERE `taxon_id` = :id 
-                AND strftime('%Y-%m-%d', `observation`.`date`) = :date";
+                AND strftime('%Y-%m-%d', `observation`.`date`) = :date
+                ORDER BY `observation`.`date` ASC";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':date', $date);

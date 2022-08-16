@@ -1,7 +1,9 @@
 <div class="date-selector container row">
-	<label for="date ">{{ "Date" | trans }}</label>
+	<label for="date">{{ "Date" | trans }}</label>
 	<button class="previous-date-button button">&lt;</button>
 	<input type="date" id="date" name="date" value="{{ date ? date : "now" | date("Y-m-d") }}" placeholder="YYYY-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" title="{{ "Enter a date in this format YYYY-MM-DD" | trans }}"/>
 	<button class="next-date-button button prevent">&gt;</button>
-	<a href="/today/{{ date ? date : " now" | date(" y-m-d") }}/species" class="button main">{{ "Go" | trans }}</a>
+	<a href="/{{ endpoint }}/{{ date ? date : " now" | date("Y-m-d") }}/" class="button main">{{ "Go" | trans }}</a>
 </div>
+
+{{ encore_entry_script_tags('date') }}

@@ -10,7 +10,8 @@
 			{{ date | format_datetime("full", "none") }}
 		{% endif %}
 	</h2>
-	{% include "today/calendar.html.twig" %}
+	{% set endpoint = "today" %}
+	{% include "utils/calendar.html.twig" %}
 	{# Display a list of records if any, else, print message #}
 	{% if results is defined and results | length > 0 %}
 		<ul>

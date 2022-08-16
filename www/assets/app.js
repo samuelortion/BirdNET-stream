@@ -12,9 +12,13 @@ import './styles/menu.css';
 // start the Stimulus application
 import './bootstrap';
 
-import './utils/spectro';
-import './utils/date';
+import feather from 'feather-icons';
+feather.replace();
 
-document.getElementsByClassName('prevent').map(
-    (e) => e.addEventListener('click', (e) => e.preventDefault())
-);
+try {
+    document.getElementsByClassName('prevent').map(
+        (e) => e.addEventListener('click', (e) => e.preventDefault())
+    );
+} catch {
+    console.debug('no prevent class found');
+}

@@ -15,7 +15,7 @@ try {
     initialize();
   })  
 } catch {
-  console.log("spectro not found");
+  console.debug("spectro not found");
 }
 
 function initialize() {

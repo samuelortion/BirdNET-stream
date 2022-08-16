@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h2>{{ "Records" }}</h2>
+    {% set endpoint = "records" %}
+    {% include "utils/calendar.html.twig" %}
+    {% if records is defined and records | length > 0 %}
+        <ul>
+            {% for record in records %}
+                <li>{{ record }}</li>            
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+{% endblock %}
