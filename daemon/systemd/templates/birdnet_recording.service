@@ -5,7 +5,7 @@ Description=BirdNET-stream recording
 
 [Service]
 User=<USER>
-Group=<DIR>
+Group=<GROUP>
 WorkingDirectory=<DIR>
 ExecStart=bash ./daemon/birdnet_recording.sh
 Restart=always

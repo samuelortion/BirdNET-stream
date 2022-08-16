@@ -2,9 +2,9 @@
 Description=BirdNET-stream miner service
 
 [Service]
-Type=oneshot
+Type=simple
 User=<USER>
-GROUP=<GROUP>
+Group=<GROUP>
 WorkingDirectory=<DIR>
 ExecStart=bash ./daemon/birdnet_miner.sh
 RemainAfterExit=yes

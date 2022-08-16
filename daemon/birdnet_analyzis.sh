@@ -80,6 +80,8 @@ analyze_chunks() {
     done
 }
 
+check_prerequisites
+
 # Get list of current chunk in working directory
 chunks=$(get_chunk_list)
 

@@ -58,7 +58,6 @@ header img.logo {
 main {
     min-height: 100vh;
     padding: 5em;
-    z-index: 0;
 }
 
 footer {
@@ -117,7 +116,7 @@ canvas {
 #statuses .grid {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     
     gap: 0.1em;
 }
@@ -130,13 +129,18 @@ canvas {
     display: inline-block;
     position: relative;
     top: 0.4em;
+    z-index: -1;
+}
+
+.status.inactive.bullet {
+    background-color: #999;
 }
 
 .status.active.bullet {
     background-color: #090;
 }
 
-.status.inactive.bullet {
+.status.dead.bullet {
     background-color: #900;
 }
 
@@ -151,4 +155,13 @@ canvas {
     opacity: 100%;
     background-color: rgba(255, 255, 255, 1);
     position: relative;
+}
+
+.logs {
+    background-color: black;
+    color: white;
+    font: monospace;
+    padding: 1em;
+    overflow-y: scroll;
+    height: 100%;
 }

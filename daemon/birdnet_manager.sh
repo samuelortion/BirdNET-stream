@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-
+# inspired by https://unix.stackexchange.com/questions/47132/execute-shell-script-from-php-as-root-user
 set -e 
 # set -x
 
@@ -9,19 +9,19 @@ if [ -f "$config_filepath" ]; then
     source "$config_filepath"
 else
     echo "Config file not found: $config_filepath"
-    exit 1
+    # exit 1
 fi
 
 if [[ -z $DAEMON_USER ]]
 then
     echo "DAEMON_USER is not set"
-    exit 1
+    # exit 1
 fi
 
 if [[ -z $DAEMON_PASSWORD ]]
 then
     echo "DAEMON_PASSWORD is not set"
-    exit 1
+    # exit 1
 fi
 
 SERVICES="$(sudo -S <<< $DAEMON_PASSWORD ls /etc/systemd/system/ | grep 'birdnet')"
@@ -36,17 +36,15 @@ debug() {
 
 manage() {
     action=$1
+    if [[ -z $2 ]]; then
+        services=$SERVICES
+    else
+        services=$2
+    fi
     debug "$action birdnet services"
-    sudo -S <<< $DAEMON_PASSWORD systemctl $action $SERVICES
+    # sshpass -p $DAEMON_PASSWORD sudo -S -u $DAEMON_USER sudo systemctl $action $services
+    sudo systemctl $action $services
     echo "done"
 }
 
-stop() {
-    manage stop
-}
-
-start() {
-    manage start
-}
-
-manage $1
+manage $1 $2

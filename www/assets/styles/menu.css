@@ -3,6 +3,7 @@ nav {
     top: 0;
     left: 0;
     --nav-width: 20em;
+    z-index: 10;
 }
 
 .toggler{

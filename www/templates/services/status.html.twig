@@ -8,9 +8,11 @@
 		<ul id="statuses" class="container column">
 			{% for service in status %}
 				<li class="grid">
-					<div class="col status bullet {{ service["status"] }}"></div>
-					<div class="col name">{{ service["name"] }}</div>
-					<div class="col status">{{ service["status"] }}</div>
+					<div class="col status bullet {{ service.status.status }}"></div>
+					<div class="col name">{{ service.name }}</div>
+					<div class="col status">{{ service.status.status }}</div>
+					<div class="col status">{{ service.status.enabled }}</div>
+					<div class="col eta">{{ service.status.eta }}</div>
 				</li>
 			{% endfor %}
 		</ul>

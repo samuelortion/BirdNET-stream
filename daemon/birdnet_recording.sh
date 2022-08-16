@@ -32,7 +32,7 @@ record() {
     DEVICE=$1
     DURATION=$2
     debug "Recording from $DEVICE for $DURATION seconds"
-    ffmpeg -nostdin -f pulse -i ${DEVICE} -t ${DURATION} -vn -acodec pcm_s16le -ac 1 -ar 48000 file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+    ffmpeg -nostdin -hide_banner -loglevel error -nostats -f pulse -i ${DEVICE} -t ${DURATION} -vn -acodec pcm_s16le -ac 1 -ar 48000 -af "volume=$RECORDING_AMPLIFY" file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
 config_filepath="./config/analyzer.conf"

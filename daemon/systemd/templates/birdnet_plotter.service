@@ -1,0 +1,12 @@
+[Unit]
+Description=BirdNET-stream plotter
+
+[Service]
+User=<USER>
+Group=<GROUP>
+WorkingDirectory=<DIR>
+ExecStart=./.venv/birdnet-stream/bin/python3 ./daemon/plotter/chart.py
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

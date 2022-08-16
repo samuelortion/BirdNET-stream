@@ -1,11 +1,9 @@
-# Launch BirdNET-Analyzer on the previously recorded audio chunks
-
 [Unit]
 Description=BirdNET-stream Analyzis
 
 [Service]
 User=<USER>
-Group=<USER>
+Group=<GROUP>
 WorkingDirectory=<DIR>
 ExecStart=bash ./daemon/birdnet_analyzis.sh
 Restart=always

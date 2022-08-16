@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <p>Welcome to BirdNET-stream !</p>
+    <p>{{ "Welcome to BirdNET-stream !" | trans }}</p>
     {% include "stats.html.twig" %}
     {% include "chart.html.twig" %}
 {% endblock %}

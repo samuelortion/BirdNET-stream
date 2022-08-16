@@ -1,49 +1,51 @@
 <nav class="navbar">
 	<input type="checkbox" class="toggler">
-    <div class="hamburger">
+	<div class="hamburger">
 		<div></div>
 	</div>
-    <div class="fill"></div>
+	<div class="fill"></div>
 	<div class="menu overlay">
 		<ul>
 			<li>
-				<a href="/">Home</a>
+				<a href="/">{{ "Home" | trans }}</a>
 			</li>
 			<li>
-				<a href="/about">About</a>
+				<a href="/about">{{ "About" | trans }}</a>
 			</li>
 			<li>
-				<a href="/today">Today's Detections</a>
+				<a href="/today">{{ "Today's Detections" | trans }}</a>
 			</li>
 			<li>
-				<a href="/spectro">Spectrogram</a>
+				<a href="/spectro">{{ "Spectrogram" | trans }}</a>
 			</li>
 			<li>
-				<a href="/stats">Species Stats</a>
+				<a href="/stats">{{ "Species Stats" | trans }}</a>
 			</li>
 			<li class="dropdown">
-				<a href="/records" class="dropdown-button">Recordings</a>
+				<a href="/records" class="dropdown-button">{{ "Recordings" | trans }}</a>
 				<ul class="dropdown-content">
 					<li>
 						<a href="/records/bests">
-							Best Recordings
+							{{ "Best Recordings" | trans }}
 						</a>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="/charts">Daily Charts</a>
+				<a href="/charts">{{ "Daily Charts" | trans }}</a>
 			</li>
 			<li>
-				<a href="/logs">View Logs</a>
+				<a href="/logs">{{ "View Logs" | trans }}</a>
+			</li>
+			<li>
+				<a href="/services/status">{{ "Status" | trans }}</a>
 			</li>
 			<li>
 				<a href="/tools">
-					Tools
+					{{ "Tools" | trans }}
 				</a>
 			</li>
 		</ul>
-
 	</div>
 	{% include "title.html.twig" %}
 </nav>

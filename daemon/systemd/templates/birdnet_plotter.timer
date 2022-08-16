@@ -1,0 +1,9 @@
+[Unit]
+Description=BirdNET-stream plotter timer
+
+[Timer]
+OnCalendar=*:00
+Unit=birdnet_plotter.service
+
+[Install]
+WantedBy=basic.target

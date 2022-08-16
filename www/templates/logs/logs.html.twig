@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h2>
+		{{ "Logs" | trans }}
+	</h2>
+    {% if logs is defined and logs | length > 0 %}
+        <pre class="logs">
+            {{ logs }}
+        </pre>
+    {% else %}
+		<p>{{ "No logs available" | trans }}</p>
+	{% endif %}
+{% endblock %}

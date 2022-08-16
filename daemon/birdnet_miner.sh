@@ -3,7 +3,6 @@
 #
 
 DEBUG=${DEBUG:-1}
-
 set -e
 # set -x
 
@@ -99,9 +98,8 @@ save_observations() {
             location_id=$(get_location_id "$LATITUDE" "$LONGITUDE")
         fi
         datetime=$(record_datetime $source_audio)
-        if [[ $(observation_exists "$source_audio" "$start" "$end" "$taxon_id" "$location_id") = "true" ]]; then
+        if [[ $(observation_exists "$source_audio" "$start" "$end" "$taxon_id" "$location_id") -eq 1 ]]; then
             debug "Observation already exists: $source_audio, $start, $end, $taxon_id, $location_id"
-            exit 1
         else
             debug "Inserting observation: $source_audio, $start, $end, $taxon_id, $location_id, $datetime"
             insert_observation "$source_audio" "$start" "$end" "$taxon_id" "$location_id" "$confidence" "$datetime"

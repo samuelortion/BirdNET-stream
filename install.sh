@@ -64,7 +64,7 @@ install_birdnetstream_services() {
     DIR=$(pwd)
     GROUP=$USER
     debug "Setting up BirdNET stream systemd services"
-    services="birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer birdnet_miner.service"
+    services="birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer birdnet_miner.service birdnet_plotter.service birdnet_plotter.timer"
     read -r -a services_array <<<"$services"
 
     for service in ${services_array[@]}; do
@@ -75,7 +75,7 @@ install_birdnetstream_services() {
         done
     done
     sudo systemctl daemon-reload
-    sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer
+    sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer birdnet_plotter.timer
 }
 
 install_php8() {
