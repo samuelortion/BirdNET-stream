@@ -6,13 +6,17 @@
 // UPDATE: there is a problem in chrome with starting audio context
 //  before a user gesture. This fixes it.
 var started = false;
-var spectro_button = document.getElementById('spectro-button');
-spectro_button.addEventListener('click', () => {
-  if (started) return;
-  started = true;
-  console.log("starting spectro");
-  initialize();
-})
+try {
+  var spectro_button = document.getElementById('spectro-button');
+  spectro_button.addEventListener('click', () => {
+    if (started) return;
+    started = true;
+    console.log("starting spectro");
+    initialize();
+  })  
+} catch {
+  console.log("spectro not found");
+}
 
 function initialize() {
   const CVS = document.getElementById('spectro-canvas');

@@ -1,89 +1,96 @@
 nav {
+    --nav-width: 20em;
+    --nav-bg: white;
+    --burger-size: 2em;
     position: fixed;
     top: 0;
     left: 0;
-    --nav-width: 20em;
+    width: 0;
     z-index: 10;
 }
 
-.toggler{
-    z-index:2;
-    height: 50px;
-    width: 50px;
-    position: absolute;
+.toggler {
+    z-index: 21;
+    height: var(--burger-size);
+    width: var(--burger-size);
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem;
+    position: fixed;
     cursor: pointer;
     opacity: 0;
 }
 
-.hamburger{
-    position: absolute;
+.hamburger {
+    position: fixed;
     top: 0;
     left: 0;
-    height: 40px;
-    width: 40px;
-    padding: 0.6rem;  
+    height: var(--burger-size);
+    width: var(--burger-size);
+    padding: 0.6rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 20;
+    opacity: 1;
 }
 
-.hamburger > div{
+.hamburger>div {
     position: relative;
     top: 0;
     left: 0;
     background: black;
     height: 2px;
     width: 75%;
-    transition: all  0.4s ease;
+    transition: all 0.4s ease;
     color: #000;
 
 }
 
-.hamburger > div::before,
-.hamburger > div::after{
+.hamburger>div::before,
+.hamburger>div::after {
     content: '';
     position: absolute;
     top: -7px;
     background: black;
     width: 100%;
     height: 2px;
-    transition: all  0.4s ease;
+    transition: all 0.4s ease;
 }
 
-.hamburger > div::after{
+.hamburger>div::after {
     top: 7px;
 }
 
-.toggler:checked + .hamburger > div{
-    background: rgba(0,0,0,0);
+.toggler:checked+.hamburger>div {
+    background: rgba(0, 0, 0, 0);
 }
 
-.toggler:checked + .hamburger > div::before{
+.toggler:checked+.hamburger>div::before {
     top: 0;
     transform: rotate(45deg);
     background: black;
 }
 
-.toggler:checked + .hamburger > div::after{
+.toggler:checked+.hamburger>div::after {
     top: 0;
     transform: rotate(135deg);
     background: black;
 }
 
-.menu{
+.menu {
     height: 100vh;
     width: 0;
     visibility: hidden;
 }
 
-.toggler:checked ~ .menu{
+.toggler:checked~.menu {
     width: fit-content;
     height: fit-content;
-    background-color: rgba(255, 255, 255, 1)!important;
+    background-color: rgba(255, 255, 255, 1) !important;
 }
 
-.menu > ul{
+.menu>ul {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -91,33 +98,39 @@ nav {
     height: 100vmax;
     padding-left: 1em;
     padding-right: 1em;
-    margin-top: 2em;
+    margin-top: var(--burger-size);
     visibility: hidden;
     background-color: white;
-    z-index: 1;
+    z-index: 10;
 }
 
-.menu > ul > li{
+.menu>ul>li {
     list-style: none;
     padding: 0.5rem;
 }
 
-.menu > ul > li > a{
+.menu>ul>li>a {
     color: black;
     text-decoration: none;
     font-size: 2rem;
 }
 
-.toggler:checked ~ .fill  {
+.toggler~.fill {
+    display: none;
+}
+
+.toggler:checked~.fill {
     background: white;
     position: absolute;
     top: 0;
     left: 0;
     height: 100vh;
     width: var(--nav-width);
+    display: block;
+    z-index: 10;
 }
 
-.toggler:checked ~ .menu > ul{
+.toggler:checked~.menu>ul {
     width: 20em;
     transition: fit-content .5s ease;
     opacity: 1;
@@ -125,6 +138,13 @@ nav {
     visibility: visible;
 }
 
-.toggler:checked ~ .menu > ul > li > a:hover{
+.toggler:checked~.menu>ul>li>a:hover {
     color: orange;
+}
+
+
+@media screen and (max-width: 700px) {
+    nav {
+        --burger-size: 4em;
+    }
 }

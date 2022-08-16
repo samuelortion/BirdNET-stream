@@ -1,3 +1,7 @@
+:root {
+    --bg: lightgray;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -20,7 +24,7 @@
     display: grid;
 }
 
-.grid > * {
+.grid>* {
     padding-left: 0.1em;
 }
 
@@ -34,11 +38,93 @@
     z-index: 1;
 }
 
+.button, input {
+    background-color: #f1f1f1;
+    color: black;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    cursor: pointer;
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+}
+
+.button:hover, input:hover {
+    background-color: #F3F4F6;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.button:disabled {
+    background-color: #FAFBFC;
+    border-color: rgba(27, 31, 35, 0.15);
+    color: #959DA5;
+    cursor: default;
+}
+
+.button-main:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.button-main:hover {
+  background-color: #2c974b;
+  padding: 6px 16px;
+}
+
+.button-main:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.button-main:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.button-main:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.button-main:active {
+    background-color: #EDEFF2;
+    box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+    transition: none 0s;
+}
+
+.button:focus, input:focus {
+    outline: 1px transparent;
+    border: solid blue 1px;
+}
+
 body {
-    background-color: lightgray;
+    background-color: var(--bg);
     margin: 0;
     padding: 0;
-    z-index: -10;
 }
 
 header {
@@ -58,6 +144,8 @@ header img.logo {
 main {
     min-height: 100vh;
     padding: 5em;
+    z-index: 0;
+    position: relative;
 }
 
 footer {
@@ -117,7 +205,7 @@ canvas {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    
+
     gap: 0.1em;
 }
 
@@ -144,12 +232,6 @@ canvas {
     background-color: #900;
 }
 
-@media screen and (max-width: 700px) {
-    main {
-        padding: 1em;
-    }
-}
-
 .overlay {
     z-index: 10;
     opacity: 100%;
@@ -164,4 +246,11 @@ canvas {
     padding: 1em;
     overflow-y: scroll;
     height: 100%;
+}
+
+
+@media screen and (max-width: 700px) {
+    main {
+        padding: 1em;
+    }
 }

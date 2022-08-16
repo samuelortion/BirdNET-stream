@@ -13,3 +13,8 @@ import './styles/menu.css';
 import './bootstrap';
 
 import './utils/spectro';
+import './utils/date';
+
+document.getElementsByClassName('prevent').map(
+    (e) => e.addEventListener('click', (e) => e.preventDefault())
+);
