@@ -140,5 +140,59 @@ sudo npm install -g yarn
 yarn build
 ```
 
+## Setup https certificates with dehydrated (only for public instances)
 
+```bash
+sudo apt-get install dehydrated
+```
 
+Edit `/etc/dehydrated/domains.txt` and add your domain name.
+
+```bash
+sudo vim /etc/dehydrated/domains.txt
+```
+
+Add acme-challenges alias to your nginx config:
+
+```bash
+server {
+    [...]
+
+    location /.well-known/acme-challenge {
+        alias /var/www/html/.well-known/acme-challenge;
+        allow all;
+    }
+}
+```
+
+Create acme-challenge directory:
+```bash
+sudo mkdir -p /var/www/html/.well-known/acme-challenge
+```
+Adapt `/etc/dehydrated/config`, by adding this folder to the `WELLKNOWN` path:
+
+```bash
+WELLKNOWN = "/var/www/html/.well-known/acme-challenge"
+```
+
+Register to certificate issuer and accept conditions and terms:
+
+```bash
+dehydrated --register --accept-terms
+```
+
+Generate certificates:
+```bash
+dehydrated -c
+```
+
+Add dehydrated cron
+```bash
+sudo crontab -e
+```
+
+```bash
+00 00 01 * * dehydrated -c
+```
+
+(This updates the certicates every first day of the month, feel free to adapt to your needs.)
