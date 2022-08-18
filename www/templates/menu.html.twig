@@ -9,57 +9,51 @@
       {% include 'utils/nav-item.html.twig' with {
         route: 'home',
         url: '/',
-        name: 'Home'|trans
+        text: 'Home'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'about',
         url: '/about',
-        name: 'About'|trans
+        text: 'About'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'today',
         url: '/today',
-        name: "Today's Detections"|trans
+        text: "Today's Detections"|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'spectro',
         url: '/spectro',
-        name: 'Live Spectrogram'|trans
+        text: 'Live Spectrogram'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'stats',
         url: '/stats',
-        name: 'Statistics'|trans
+        text: 'Statistics'|trans
       } %}
       <li class="dropdown">
         {% include 'utils/nav-item.html.twig' with {
           route: 'records',
           url: '/records',
-          name: 'Recordings'|trans
+          text: 'Recordings'|trans
         } %}
         <ul class="dropdown-content">
           {% include 'utils/nav-item.html.twig' with {
-            route: 'bests',
+            route: 'records_best',
             url: '/records/best',
-            name: 'Best Recordings'|trans
+            text: 'Best Recordings'|trans
           } %}
         </ul>
       </li>
       {% include 'utils/nav-item.html.twig' with {
-        route: 'bests',
-        url: '/records/best',
-        name: 'Best Recordings'|trans
-      } %}
-
-      {% include 'utils/nav-item.html.twig' with {
         route: 'logs',
         url: '/logs',
-        name: 'View Logs'|trans
+        text: 'View Logs'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
-        route: 'status',
+        route: 'services_status',
         url: '/services/status',
-        name: 'Status'|trans
+        text: 'Status'|trans
       } %}
     </ul>
   </div>

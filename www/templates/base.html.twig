@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app.request.locale }}">
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -27,6 +27,7 @@
 					</div>
 				</a>
 			</header>
+			{% include "utils/locale-switcher.html.twig" %}
 			<main>
 				{% block content %}
 					<p>Welcome to BirdNET-stream !</p>

@@ -12,6 +12,7 @@ class LogsController extends AbstractController
     private $allowed_services = "recording analyzis miner plotter";
     /**
      * @Route("/logs/{service}", name="logs")
+     * @Route("/{_locale<%app.supported_locales%>}/logs/{service}", name="logs_i18n")
      */
     public function logs($service = "all")
     {

@@ -1,0 +1,28 @@
+{% set current = app.request.get('_route')|replace({"_i18n": ""})~"_i18n"  %}
+{% macro lang_url(route, locale, name) %}
+  <a class="language-item"
+    href="{{
+    path(
+      route,
+      {
+        _locale: locale
+      }
+    )
+    }}">{{ name }}
+  </a>
+{% endmacro %}
+<li class="language-selector">
+  <label for="toggle" class="touch"
+    role="button">
+    {{ app.request.locale|locale_name(app.request.locale)|u.title }}
+  </label>
+  <input type="checkbox" name="dropdown-checkbox" class="toggle">
+  <ul class="slide">
+    <li>
+      {{ _self.lang_url(current, "en", "English") }}
+    </li>
+    <li>
+      {{ _self.lang_url(current, "fr", "Français") }}
+    </li>
+  </ul>
+</li>

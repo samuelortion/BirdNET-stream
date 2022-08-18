@@ -13,7 +13,8 @@ class RecordsController extends AbstractController
     private Connection $connection;
 
     /**
-     * @Route("/records/{date}", name="records_index")
+     * @Route("/records", name="records")
+     * @Route("/{_locale<%app.supported_locales%>}/records/{date}", name="records_i18n")
      */
     public function records_index($date = "now")
     {
@@ -30,12 +31,23 @@ class RecordsController extends AbstractController
 
     /**
      * @Route("/records/delete/{basename}", name="record_delete")
+     * @Route("/{_locale<%app.supported_locales%>}/records/delete/{basename}", name="record_delete_i18n")
      */
     public function delete_record(Connection $connection, $basename)
     {
         $this->connection = $connection;
         $this->remove_record_by_basename($basename);
         return $this->redirectToRoute('records_index');
+    }
+
+    /**
+     * @Route("/records/best", name="records_best")
+     * @Route("/{_locale<%app.supported_locales%>}/records/best", name="records_best_i18n")
+     */
+    public function best_records(Connection $connection)
+    {
+        $this->render('records/best.html.twig', [
+        ]);
     }
 
     private function list_records()

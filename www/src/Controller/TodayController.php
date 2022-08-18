@@ -14,6 +14,7 @@ class TodayController extends AbstractController
 
     /**
      * @Route("/today", name="today")
+     * @Route("/{_locale<%app.supported_locales%>}/today", name="today_i18n")
      */
     public function today(Connection $connection)
     {
@@ -22,6 +23,7 @@ class TodayController extends AbstractController
 
     /**
      * @Route("/today/species", name="today_species")
+     * @Route("/{_locale<%app.supported_locales%>}/today/species", name="today_species_i18n")
      */
     public function today_species_page(Connection $connection)
     {
@@ -35,6 +37,7 @@ class TodayController extends AbstractController
 
     /**
      * @Route("/today/species/{id}", name="today_species_id")
+     * @Route("/{_locale<%app.supported_locales%>}/today/species/{id}", name="today_species_id_i18n")
      */
     public function today_species_by_id(Connection $connection, $id)
     {
@@ -49,6 +52,7 @@ class TodayController extends AbstractController
 
     /**
      * @Route("/today/{date}", name="today_date")
+     * @Route("/{_locale<%app.supported_locales%>}/today/{date}", name="today_date_i18n")
      */
     public function today_date(Connection $connection, $date)
     {
@@ -57,6 +61,7 @@ class TodayController extends AbstractController
 
     /**
      * @Route("/today/{date}/species", name="today_species_date")
+     * @Route("/{_locale<%app.supported_locales%>}/today/{date}/species", name="today_species_date_i18n")
      */
     public function today_species_by_date(Connection $connection, $date)
     {
@@ -69,6 +74,7 @@ class TodayController extends AbstractController
 
     /**
      * @Route("/today/{date}/species/{id}", name="today_species_id_and_date")
+     * @Route("/{_locale<%app.supported_locales%>}/today/{date}/species/{id}", name="today_species_id_and_date_i18n")
      */
     public function today_species_by_id_and_date(Connection $connection, $date, $id)
     {

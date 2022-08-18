@@ -13,6 +13,7 @@ class AuthController extends AbstractController
 
     /**
      * @Route("/auth", name="auth")
+     * @Route("/{_locale<%app.supported_locales%>}/auth", name="auth_i18n")
      */
     public function index(Connection $connection)
     {
@@ -21,6 +22,7 @@ class AuthController extends AbstractController
      
     /**
      * @Route("/auth/login", name="login")
+     * @Route("/{_locale<%app.supported_locales%>}/auth/login", name="login_i18n")
      */
     public function login()
     {

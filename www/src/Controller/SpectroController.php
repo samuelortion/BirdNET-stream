@@ -10,8 +10,9 @@ class SpectroController extends AbstractController
 {
     /**
      * @Route("/spectro", name="spectro")
+     * @Route("/{_locale<%app.supported_locales%>}/spectro", name="spectro_i18n")
      */
-    public function about()
+    public function spectro()
     {
         return $this->render('spectro/index.html.twig', [
         

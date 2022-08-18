@@ -12,7 +12,8 @@ class HomeController extends AbstractController
     private Connection $connection;
 
     /**
-     * @Route("/", name="home")
+     * @Route("", name="home")
+     * @Route("/{_locale<%app.supported_locales%>}/", name="home_i18n")
      */
     public function index(Connection $connection)
     {
@@ -25,6 +26,7 @@ class HomeController extends AbstractController
      
     /**
      * @Route("/about", name="about")
+     * @Route("/{_locale<%app.supported_locales%>}/about", name="about_i18n")
      */
     public function about()
     {

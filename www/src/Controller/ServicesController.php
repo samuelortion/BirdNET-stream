@@ -14,7 +14,8 @@ class ServicesController extends AbstractController
     
 
     /**
-     * @Route("/services/status", name="service_status")
+     * @Route("/services/status", name="services_status")
+     * @Route("/{_locale<%app.supported_locales%>}/services/status", name="service_status_i18n")
      */
     public function service_status() {
         $status = array_map(function($service) {
@@ -29,7 +30,8 @@ class ServicesController extends AbstractController
     }
 
     /**
-     * @Route("/services/manage/{action}/{service}", name="service_manager")
+     * @Route("/services/manage/{action}/{service}", name="services_manager")
+     * @Route("/{_locale<%app.supported_locales%>}/services/manage/{action}/{service}", name="service_manager_i18n")
      */
     public function service_manage($action, $service="all")
     {
