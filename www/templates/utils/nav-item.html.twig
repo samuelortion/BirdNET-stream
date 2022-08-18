@@ -1,0 +1,6 @@
+<li>
+  <a class="{{ app.request.get('_route') matches '{' ~ route ~ '_*}' ? 'active' }}"
+    href="{{ url }}">
+    {{ name }}
+  </a>
+</li>

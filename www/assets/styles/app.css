@@ -157,8 +157,9 @@ body {
 header {
     padding: 1em;
     /** Align text and center of image */
-    justify-content: center;
-    align-items: baseline;
+    /* justify-content: center; */
+    width: fit-content;
+    margin: auto;
 }
 
 header h1 {

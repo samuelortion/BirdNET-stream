@@ -50,7 +50,8 @@ class HomeController extends AbstractController
                 ORDER BY `contact_count` DESC LIMIT 1";
         $stmt = $this->connection->prepare($sql);
         $result = $stmt->executeQuery();
-        return $result->fetchAllAssociative()[0];
+        $species = $result->fetchAllAssociative();
+        return $species[0];
     }
 
     private function get_last_recorded_species() 
@@ -62,7 +63,8 @@ class HomeController extends AbstractController
                 ORDER BY `date` DESC LIMIT 1";
         $stmt = $this->connection->prepare($sql);
         $result = $stmt->executeQuery();
-        return $result->fetchAllAssociative();
+        $species = $result->fetchAllAssociative();
+        return $species[0];
     }
 
     private function last_chart_generated() {

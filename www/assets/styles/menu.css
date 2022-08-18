@@ -116,32 +116,35 @@ nav {
     font-size: var(--font-size);
 }
 
+.menu>ul>li>a:hover, .menu>ul>li>a.active {
+    color: orange;
+}
+
+
 .toggler~.fill {
-    display: none;
+    visibility: hidden;
+    width: 0;
 }
 
 .toggler:checked~.fill {
-    background: var(--nav-bg);
-    position: absolute;
+    background-color: var(--nav-bg);
+    position: fixed;
     top: 0;
     left: 0;
     height: var(--burger-size);
     width: var(--nav-width);
-    display: block;
     z-index: 10;
-}
-
-.toggler:checked~.menu>ul {
-    width: 20em;
-    transition: fit-content .5s ease;
-    opacity: 1;
-    transition: opacity .5s, visibility .5s, height .5s, width .5s;
+    transition: visibility .5s, width .5s;
     visibility: visible;
 }
 
-.toggler:checked~.menu>ul>li>a:hover {
-    color: orange;
+.toggler:checked~.menu>ul {
+    width: var(--nav-width);
+    opacity: 1;
+    transition: visibility .5s, width .5s;
+    visibility: visible;
 }
+
 
 
 @media screen and (max-width: 700px) {
