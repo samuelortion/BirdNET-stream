@@ -7,7 +7,10 @@
     {% if records is defined and records | length > 0 %}
         <ul>
             {% for record in records %}
-                <li>{{ record }}</li>            
+                <li>{{ record }}
+                    {% include "records/delete_button.html.twig" with { filename: record } only %}
+                    {% include "records/player.html.twig" with { filename: record } only %}
+                </li>            
             {% endfor %}
         </ul>
     {% endif %}

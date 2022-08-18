@@ -1,0 +1,5 @@
+<div {{ stimulus_controller('delete-record') }}>
+    <button class="delete button" value="{{ filename }}" {{ stimulus_target('delete-record', 'filename') }} {{ stimulus_action('delete-record', 'delete') }}>
+        <i data-feather="trash-2"></i>
+    </button>
+</div>

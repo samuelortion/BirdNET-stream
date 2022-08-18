@@ -4,6 +4,12 @@
     <h2>{{ "Spectrogram"  | trans }}</h2>
     <div>
         <button id="spectro-button">{{ "Launch Live Spectrogram" | trans }}</button>
+        <audio id="player" controls>
+            <source media="/stream">
+            {{ "No audio sources yet" | trans }}
+        </audio>
         <canvas id="spectro-canvas"></canvas>
     </div>
+
+    {{ encore_entry_script_tags('spectro') }}
 {% endblock %}

@@ -35,9 +35,11 @@
         <div class="records">
             <h3>{{ "Contact records" | trans }}</h3>
             {% if records is defined and records | length > 0 %}
+                {% include "today/manage.html.twig" %}
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>{{ "Filename" | trans }}</th>
                             <th>{{ "Time" | trans }}</th>
                             <th>{{ "Confidence" | trans }}</th>
@@ -47,6 +49,9 @@
                         {% for record in records %}
                             <tr>
                                 <td>
+                                    <input title="{{ "Select this record" | trans }}" type="checkbox" name="select-file" value="{{ record.audio_file }}">
+                                </td>
+                                <td>
                                     <a title="{{ "Download audio file" | trans }}" href="/media/records/{{ record.audio_file }}">
                                     {{ record.audio_file }}
                                     </a>
@@ -54,9 +59,8 @@
                                 <td>{{ record.date | date("H:m") }}</td>
                                 <td>{{ record.confidence }}</td>
                                 <td>
-                                    {% include "utils/player.html.twig" with { "file": record.audio_file } only %}
-                                    <button class="delete" value="{{ record.audio_file }}"><i data-feather="trash-2"></i></button>
-                                </td>
+                                    {% include "records/player.html.twig" with { "filename": record.audio_file } only %}
+                                    {% include "records/delete_button.html.twig" with { "filename": record.audio_file } only %}                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

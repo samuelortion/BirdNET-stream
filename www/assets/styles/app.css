@@ -1,9 +1,24 @@
 :root {
-    --bg: lightgray;
+    --bg: white;
+    --font-family: 'Latin Modern Math';
+    --font-size: 2em;
 }
 
 * {
     box-sizing: border-box;
+    font-family: var(--font-family);
+    font-size: large;
+}
+
+html {
+    position: relative;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .container {
@@ -18,6 +33,18 @@
 
 .container.row {
     flex-direction: row;
+}
+
+.grow {
+    flex-grow: 100;
+}
+
+.end {
+    justify-self: flex-end;
+}
+
+.item {
+    align-self: flex-end;
 }
 
 .grid {
@@ -38,7 +65,7 @@
     z-index: 1;
 }
 
-.button, input {
+.button, input[type=submit], input[type=button] {
     background-color: #f1f1f1;
     color: black;
     border-radius: 5px;
@@ -129,23 +156,31 @@ body {
 
 header {
     padding: 1em;
-    display: flex;
-    flex-direction: row;
     /** Align text and center of image */
     justify-content: center;
     align-items: baseline;
 }
 
+header h1 {
+    font-size: 4rem;
+}
+
+header:first-child {
+    justify-content: center;
+}
+
 header img.logo {
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: 10rem;
+    position: relative;
+    top: -2rem;
+    padding-top: 1em;
 }
 
 main {
-    min-height: 100vh;
+    min-height: calc(100vh - (var(--header-height, 4em) + var(--footer-height, 4em)) );
     padding: 5em;
     z-index: 0;
-    position: relative;
 }
 
 footer {
@@ -153,6 +188,7 @@ footer {
     background-color: black;
     padding: 2em;
     text-align: center;
+    overflow: hidden;
 }
 
 footer a {
@@ -167,8 +203,6 @@ footer a:hover {
 li, td {
     align-items: center;
 }
-
-td 
 
 /* .dropdown-button:hover {
     background-color: #900;

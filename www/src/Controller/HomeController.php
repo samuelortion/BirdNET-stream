@@ -62,7 +62,7 @@ class HomeController extends AbstractController
                 ORDER BY `date` DESC LIMIT 1";
         $stmt = $this->connection->prepare($sql);
         $result = $stmt->executeQuery();
-        return $result->fetchAllAssociative()[0];
+        return $result->fetchAllAssociative();
     }
 
     private function last_chart_generated() {

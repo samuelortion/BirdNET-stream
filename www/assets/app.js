@@ -15,6 +15,19 @@ import './bootstrap';
 import feather from 'feather-icons';
 feather.replace();
 
+/** Update css variables --{header, footer}-height 
+ * by querying elements real height */
+(function() {
+    let css_root = document.querySelector(':root');
+    let header = document.getElementsByTagName('header')[0];
+    let header_height = header.clientHeight;
+    css_root.style.setProperty('--header-height', header_height + 'px');
+    let footer = document.getElementsByTagName('footer')[0];
+    let footer_height = footer.clientHeight;
+    css_root.style.setProperty('--footer-height', footer_height + 'px');
+    
+})();
+
 try {
     document.getElementsByClassName('prevent').map(
         (e) => e.addEventListener('click', (e) => e.preventDefault())

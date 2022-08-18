@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -16,12 +16,16 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
+	<body class="container col">
 		{% block body %}
 			{% include "menu.html.twig" %}
 			<header>
-				<img class="logo" src="/media/logo.svg" alt="BirdNET logo">
-				<h1>BirdNET-stream</h1>
+				<a href="/">
+					<div class="container row">
+						<img class="logo" src="/media/logo.svg" alt="BirdNET logo">
+						<h1>BirdNET-stream</h1>
+					</div>
+				</a>
 			</header>
 			<main>
 				{% block content %}
