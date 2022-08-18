@@ -23,5 +23,8 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # AppBundle\Connections\ExtendedConnection\ConnectionDefault: '@doctrine.dbal.default_connection'
+    App\AppBundle\Connections\ConnectionObservations: '@doctrine.dbal.observations_connection'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

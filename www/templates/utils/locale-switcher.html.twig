@@ -3,10 +3,7 @@
   <a class="language-item"
     href="{{
     path(
-      route,
-      {
-        _locale: locale
-      }
+      route, app.request.attributes.get('_route_params')|merge({'_locale': locale})
     )
     }}">{{ name }}
   </a>

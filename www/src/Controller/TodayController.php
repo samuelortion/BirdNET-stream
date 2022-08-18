@@ -5,27 +5,30 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\DBAL\Connection;
+use App\AppBundle\Connections\ConnectionObservations;
 
 class TodayController extends AbstractController
-{
+{    private ConnectionObservations $connection;
 
-    private Connection $connection;
+    public function __construct(ConnectionObservations $connection)
+    {
+        $this->connection = $connection;
+    }
 
     /**
      * @Route("/today", name="today")
      * @Route("/{_locale<%app.supported_locales%>}/today", name="today_i18n")
      */
-    public function today(Connection $connection)
+    public function today(ConnectionObservations $connection)
     {
-       return $this->redirectToRoute("today_species");
+       return $this->redirectToRoute("today_species_i18n");
     }
 
     /**
      * @Route("/today/species", name="today_species")
      * @Route("/{_locale<%app.supported_locales%>}/today/species", name="today_species_i18n")
      */
-    public function today_species_page(Connection $connection)
+    public function today_species_page(ConnectionObservations $connection)
     {
         $this->connection = $connection;
         $date = date('Y-m-d');
@@ -39,9 +42,8 @@ class TodayController extends AbstractController
      * @Route("/today/species/{id}", name="today_species_id")
      * @Route("/{_locale<%app.supported_locales%>}/today/species/{id}", name="today_species_id_i18n")
      */
-    public function today_species_by_id(Connection $connection, $id)
+    public function today_species_by_id($id)
     {
-        $this->connection = $connection;
         $date = date('Y-m-d');
         return $this->render('today/species.html.twig', [
             "date" => $date,
@@ -54,7 +56,7 @@ class TodayController extends AbstractController
      * @Route("/today/{date}", name="today_date")
      * @Route("/{_locale<%app.supported_locales%>}/today/{date}", name="today_date_i18n")
      */
-    public function today_date(Connection $connection, $date)
+    public function today_date($date="2022-08-13")
     {
         return $this->redirectToRoute('today_species_date', array('date' => $date));
     }
@@ -63,9 +65,8 @@ class TodayController extends AbstractController
      * @Route("/today/{date}/species", name="today_species_date")
      * @Route("/{_locale<%app.supported_locales%>}/today/{date}/species", name="today_species_date_i18n")
      */
-    public function today_species_by_date(Connection $connection, $date)
+    public function today_species_by_date($date="2022-08-13")
     {
-        $this->connection = $connection;
         return $this->render('today/index.html.twig', [
             "date" => $date,
             "results" => $this->recorded_species_by_date($date)
@@ -76,9 +77,8 @@ class TodayController extends AbstractController
      * @Route("/today/{date}/species/{id}", name="today_species_id_and_date")
      * @Route("/{_locale<%app.supported_locales%>}/today/{date}/species/{id}", name="today_species_id_and_date_i18n")
      */
-    public function today_species_by_id_and_date(Connection $connection, $date, $id)
+    public function today_species_by_id_and_date($id, $date="2022-08-13")
     {
-        $this->connection = $connection;
         return $this->render('today/species.html.twig', [
             "date" => $date,
             "results" => $this->recorded_species_by_id_and_date($id, $date)

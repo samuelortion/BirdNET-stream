@@ -8,51 +8,42 @@
     <ul>
       {% include 'utils/nav-item.html.twig' with {
         route: 'home',
-        url: '/',
         text: 'Home'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'about',
-        url: '/about',
         text: 'About'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'today',
-        url: '/today',
         text: "Today's Detections"|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'spectro',
-        url: '/spectro',
         text: 'Live Spectrogram'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'stats',
-        url: '/stats',
         text: 'Statistics'|trans
       } %}
       <li class="dropdown">
         {% include 'utils/nav-item.html.twig' with {
           route: 'records',
-          url: '/records',
           text: 'Recordings'|trans
         } %}
         <ul class="dropdown-content">
           {% include 'utils/nav-item.html.twig' with {
             route: 'records_best',
-            url: '/records/best',
             text: 'Best Recordings'|trans
           } %}
         </ul>
       </li>
       {% include 'utils/nav-item.html.twig' with {
         route: 'logs',
-        url: '/logs',
         text: 'View Logs'|trans
       } %}
       {% include 'utils/nav-item.html.twig' with {
         route: 'services_status',
-        url: '/services/status',
         text: 'Status'|trans
       } %}
     </ul>

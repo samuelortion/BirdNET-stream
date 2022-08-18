@@ -6,12 +6,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\DBAL\Connection;
+use App\AppBundle\Connections\ConnectionObservations;
 
 class RecordsController extends AbstractController
 {
-    private Connection $connection;
+    private ConnectionObservations $connection;
 
+    public function __construct(ConnectionObservations $connection)
+    {
+        $this->connection = $connection;
+    }
+    
     /**
      * @Route("/records", name="records")
      * @Route("/{_locale<%app.supported_locales%>}/records/{date}", name="records_i18n")

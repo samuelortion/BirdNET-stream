@@ -6,18 +6,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\DBAL\Connection;
+use App\AppBundle\Connections\ConnectionObservations;
 
 class HomeController extends AbstractController
 {
     private Connection $connection;
 
+    public function __construct(ConnectionObservations $connection)
+    {
+        $this->connection = $connection;
+    }
+
     /**
      * @Route("", name="home")
      * @Route("/{_locale<%app.supported_locales%>}/", name="home_i18n")
      */
-    public function index(Connection $connection)
+    public function index()
     {
-        $this->connection = $connection;
         return $this->render('index.html.twig', [
             "stats" => $this->get_stats(),
             "charts" => $this->last_chart_generated(),

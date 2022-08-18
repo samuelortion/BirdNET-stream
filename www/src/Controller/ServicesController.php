@@ -15,7 +15,7 @@ class ServicesController extends AbstractController
 
     /**
      * @Route("/services/status", name="services_status")
-     * @Route("/{_locale<%app.supported_locales%>}/services/status", name="service_status_i18n")
+     * @Route("/{_locale<%app.supported_locales%>}/services/status", name="services_status_i18n")
      */
     public function service_status() {
         $status = array_map(function($service) {
