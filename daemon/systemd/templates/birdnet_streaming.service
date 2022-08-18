@@ -1,0 +1,12 @@
+[Unit]
+Description=BirdNET-stream audio streaming service
+
+[Service]
+Type=simple
+User=<USER>
+Group=<GROUP>
+WorkingDirectory=<DIR>
+ExecStart=bash ./daemon/birdnet_streaming.sh
+
+[Install]
+WantedBy=multi-user.target

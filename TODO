@@ -1,4 +1,2 @@
-- Fix install of venv
 - Fix clean script
-- Change install script for php 8.1
 - Fix service manager

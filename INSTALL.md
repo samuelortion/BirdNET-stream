@@ -65,7 +65,7 @@ sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service b
 ```
 
 #### Check if services are working
-    
+
 ```bash
 # Sercices status
 sudo systemctl status birdnet_recording.service birdnet_analyzis.service
@@ -140,11 +140,71 @@ sudo npm install -g yarn
 yarn build
 ```
 
+## Setup audio streaming with icecast and ffmpeg for live spectrogram
+
+Install icecast:
+
+```bash
+sudo apt-get install icecast2
+```
+
+Modify icecast password:
+
+```xml
+[...]
+<authentication>
+    <!-- Sources log in with username 'source' -->
+    <source-password>secret</source-password>
+    <!-- Relays log in with username 'relay' -->
+	<relay-password>secret</relay-password>
+    <!-- Admin logs in with the username given below -->
+    <admin-user>birdnet</admin-user>
+    <admin-password>secret</admin-password>
+</authentication>
+[...]
+```
+
+Launch and enable icecast:
+
+```bash
+sudo systemctl enable --now icecast2
+```
+
+Adapt `config/analyzer.conf` to this configuration:
+
+```conf
+ICECAST_USER=source
+ICECAST_PASSWORD=secret # change this to the password you set above
+ICECAST_PORT=8000
+ICECAST_HOST=localhost
+ICECAST_MOUNT=stream
+```
+
+Launch and enable audio streamer daemon:
+
+```bash
+sudo systemctl enable --now birdnet_streaming.service
+```
+
+Add a reverse proxy to nginx to allow https
+
+```nginx
+server {
+    [...]
+
+    location /stream {
+        proxy_pass http://localhost:8000/birdnet;
+    }
+
+    [...]
+}
+```
+
 ## Setup https certificates with dehydrated (only for public instances)
 
 ```bash
 sudo apt-get install dehydrated
-```
+````
 
 Edit `/etc/dehydrated/domains.txt` and add your domain name.
 
@@ -166,9 +226,11 @@ server {
 ```
 
 Create acme-challenge directory:
+
 ```bash
 sudo mkdir -p /var/www/html/.well-known/acme-challenge
 ```
+
 Adapt `/etc/dehydrated/config`, by adding this folder to the `WELLKNOWN` path:
 
 ```bash
@@ -182,11 +244,13 @@ dehydrated --register --accept-terms
 ```
 
 Generate certificates:
+
 ```bash
 dehydrated -c
 ```
 
 Add dehydrated cron
+
 ```bash
 sudo crontab -e
 ```

@@ -1,6 +1,13 @@
 #! /usr/bin/env bash
 set -e
 
+DEBUG=${DEBUG:-1}
+debug() {
+    if [ $DEBUG -eq 1 ]; then
+        echo "$1"
+    fi
+}
+
 config_filepath="./config/analyzer.conf"
 
 if [ -f "$config_filepath" ]; then
@@ -69,6 +76,7 @@ analyze_chunk() {
     date=$(echo $chunk_name | cut -d'_' -f2)
     week=$(./daemon/weekof.sh $date)
     $PYTHON_EXECUTABLE ./analyzer/analyze.py --i $chunk_path --o "$output_dir/model.out.csv" --lat $LATITUDE --lon $LONGITUDE --week $week --min_conf $CONFIDENCE --threads 4 --rtype csv
+    debug "Model output written to $output_dir/model.out.csv"
 }
 
 # Perform audio chunk analysis on all recorded chunks
