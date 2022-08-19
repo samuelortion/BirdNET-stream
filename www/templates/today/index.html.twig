@@ -1,31 +1,38 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block content %}
-	<h2>
-		{% set today = "now" | date("Y-m-d") %}
-		{% if today == date %}
-			{{ "Today's detected species" | trans }}
-		{% else %}
-			{{ "Detected species on" | trans }}
-			{{ date | format_datetime("full", "none") }}
-		{% endif %}
-	</h2>
-	{% set endpoint = "today" %}
-	{% include "utils/calendar.html.twig" %}
-	{# Display a list of records if any, else, print message #}
-	{% if results is defined and results | length > 0 %}
-		<ul>
-			{% for sp in results %}
-				<li class="species">
-					<a href="./species/{{ sp['taxon_id'] }}">
-						<span class="scientific-name">{{ sp["scientific_name"] }}
-							(</span>
-						<span class="common-name">{{ sp["common_name"] }}</span>)
-					</a>
-				</li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<p>{{ "No species detected this day" | trans }}</p>
-	{% endif %}
+  <h2>
+    {% set today = 'now'|date('Y-m-d') %}
+    {% if today == date %}
+      {{ "Today's detected species"|trans }}
+    {% else %}
+      {{ 'Detected species on'|trans }}
+      {{ date|format_datetime('full', 'none') }}
+    {% endif %}
+  </h2>
+  {% set endpoint = 'today' %}
+  {% include 'utils/calendar.html.twig' %}
+  {# Display a list of records if any, else, print message #}
+  {% if results is defined and (results|length) > 0 %}
+    <ul>
+      {% for sp in results %}
+        <li class="species">
+          <span class="scientific-name">
+            {{ sp['scientific_name'] }}
+            (
+          </span>
+          <span class="common-name">{{ sp['common_name'] }}</span>)
+          <span class="link">
+            <a href="./species/{{ sp['taxon_id'] }}">
+			  <i data-feather="link"></i>
+			</a>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>
+      {{ 'No species detected this day'|trans }}
+    </p>
+  {% endif %}
 {% endblock %}
