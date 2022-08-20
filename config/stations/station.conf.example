@@ -1,0 +1,3 @@
+# Config file for a distant recording station 
+RTSP_URL=rtsp://host:1000/birdnet/stream
+STATION_NAME=garden

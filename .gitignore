@@ -1,6 +1,5 @@
 var/
 /.venv/
-/analyzer/
 
 .env
 
@@ -8,6 +7,8 @@ species_list.txt
 
 push.sh
 
-config/*.conf
-
+/config/*.conf
+!/config/*.conf.example
+/config/stations/*.conf
+!/config/stations/*.conf.example
 .vscode/

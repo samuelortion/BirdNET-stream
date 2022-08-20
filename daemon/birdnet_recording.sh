@@ -27,12 +27,20 @@ record_loop() {
     done
 }
 
+FFMPEG_OPTIONS="-nostdin -hide_banner -loglevel error -nostats -vn -acodec pcm_s16le -ac 1 -ar 48000 "
 
-record() {
+record_stream() {
+    local STREAM=$1
+    local DURATION=$2
+    local debug "Recording from $STREAM for $DURATION seconds"
+    ffmpeg $FFMPEG_OPTIONS  -f  -i ${DEVICE} -t ${DURATION} file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+}
+
+record_device() {
     DEVICE=$1
     DURATION=$2
     debug "Recording from $DEVICE for $DURATION seconds"
-    ffmpeg -nostdin -hide_banner -loglevel error -nostats -f pulse -i ${DEVICE} -t ${DURATION} -vn -acodec pcm_s16le -ac 1 -ar 48000 -af "volume=$RECORDING_AMPLIFY" file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+    ffmpeg $FFMPEG_OPTIONS -f pulse -i ${DEVICE} -t ${DURATION} -af "volume=$RECORDING_AMPLIFY" file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
 config_filepath="./config/analyzer.conf"
@@ -53,4 +61,13 @@ if [[ -z $AUDIO_DEVICE ]]; then
     exit 1
 fi
 
-record_loop $AUDIO_DEVICE $RECORDING_DURATION
+if [[ $AUDIO_RECORDING = "true" ]]; then
+    record_loop $AUDIO_DEVICE $RECORDING_DURATION &
+fi
+
+if [[ $AUDIO_STATIONS = "true" ]]; then
+    for station in $(ls ./config/stations/*.conf); do
+        source $station
+        record_stream $STATION_URL $RECORDING_DURATION &
+    done
+fi
