@@ -82,7 +82,11 @@ analyze_chunk() {
 # Perform audio chunk analysis on all recorded chunks
 analyze_chunks() {
     for chunk_name in $(get_chunk_list); do
-        analyze_chunk $chunk_name
+        if [[ -f "${CHUNK_FOLDER}/out/$chunk_name.d/model.out.csv" ]]; then
+            debug "Skipping $chunk_name, as it has already been analyzed"
+        else
+            analyze_chunk $chunk_name
+        fi
         chunk_path="${CHUNK_FOLDER}/in/$chunk_name"
         mv $chunk_path "${CHUNK_FOLDER}/out/$chunk_name"
     done

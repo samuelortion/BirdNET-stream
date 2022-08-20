@@ -22,6 +22,9 @@ BirdNET-stream webapp is written in PHP Symfony. The i18n files are stored in th
 
 Any help is welcome to translate the webapp into your language.
 
+Add your language code into [./www/bin/translate.sh](./www/bin/translate.sh) and run it to update the translation files.
+
+Then, edit generated files in [./www/translations](./www/translations).
 
 ## Filing a pull request
 

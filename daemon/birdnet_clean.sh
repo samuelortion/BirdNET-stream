@@ -3,6 +3,16 @@
 ## Clean up var folder from useless files
 ##
 
+set -e
+# set -x
+
+DEBUG=${DEBUG:-1}
+debug() {
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$1"
+    fi
+}
+
 config_filepath="./config/analyzer.conf"
 
 if [ -f "$config_filepath" ]; then
@@ -20,51 +30,61 @@ wav2dir_name() {
 
 # Clean out folder from empty audio
 clean() {
-    rm -rf $(junk)
+    for item in $(junk); do
+        debug "Removing: $item"
+        rm -rf "$CHUNK_FOLDER/out/$item"
+    done
+    empty_audios=$(find "$CHUNK_FOLDER/in" -type f -size 0)
+    for item in $empty_audios; do
+        rm -rf "$item"
+    done
 }
 
-# Check if string contains string
-mem() {
-    string=$2
-    substring=$1
-    if [[ "$string" == *"$substring"* ]]; then
-        echo "true"
-    else
-        echo "false"
-    fi
+dryclean() {
+    debug "Dry run mode"
+    debug "Script will remove the following files:"
+    for item in $(junk); do
+        debug "$item"
+    done
+    empty_audios=$(find "$CHUNK_FOLDER/in" -type f -size 0)
+    for item in $empty_audios; do
+        echo "$item"
+    done
 }
 
 # Get list of junk files
 junk() {
     # Get all empty files from treatement folder
-    find "${CHUNK_FOLDER}/out" -type f -name '*.wav' -size 0
+    junk=$(find "${CHUNK_FOLDER}/out" -type f -name '*.wav' -size 0)
     for file in $junk; do
         folder=$(wav2dir_name "$file")
         if [[ -d $folder ]]; then
             junk="$junk $folder"
         fi
     done
-    # Get all empty files from record folder
-    junk=$(find "${CHUNK_FOLDER}/in" -type f -name '*.wav' -exec basename {} \; ! -size 0)
     # Get all empty treatment directories
-    junk="$junk $(find ${CHUNK_FOLDER}/out -type d -empty)"
-    # Get all empty record directories
-    treatement_folder=$(find -wholename "${CHUNK_FOLDER}/out/*" -type d ! -empty)
-    if [[ ! -z ${treatement_folder} ]]; then
-        for folder in $treatement_folder; do
-            echo $folder
-            if [[ ! $(mem $folder $junk) = "true" ]] && $(no_bird_in_model_output $folder); then
-                junk="$junk $folder"
-            fi
-        done
-    fi
+    junk="$junk $(find ${CHUNK_FOLDER}/out/* -type d -empty)"
+    # Get all no birdcontact directories
+    treatement_folders=$(find ${CHUNK_FOLDER}/out/* -type d ! -empty)
+    for folder in $treatement_folders; do
+        folder_basename=$(basename "$folder")
+        if [[ $(no_bird_in_model_output $folder_basename) = "true" ]]; then
+            # Add model output file to junk list
+            junk="$junk $folder_basename/model.out.csv"
+            junk="$junk $folder_basename"
+        fi
+    done
     echo "$junk"
 }
 
 no_bird_in_model_output() {
     folder=$1
-    output="${folder}/model.out.csv"
-    lines=$(wc -l < "$output")
+    output="$CHUNK_FOLDER/out/$folder/model.out.csv"
+    if [[ -f $output ]]; then
+        lines=$(wc -l <"$output")
+    else
+        lines=0
+    fi
     if [[ $lines -eq 1 ]]; then
         echo "true"
     else
@@ -72,8 +92,8 @@ no_bird_in_model_output() {
     fi
 }
 
-main() {
+if [[ $1 = "dry" ]]; then
+    dryclean
+else
     clean
-}
-
-main
+fi

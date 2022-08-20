@@ -1,2 +1,5 @@
 - Fix clean script
 - Fix service manager
+- Add docker support
+- Species i18n
+- File purge policy

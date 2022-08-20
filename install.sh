@@ -1,19 +1,12 @@
 #! /usr/bin/env bash
+# Standard Installation Script for BirdNET-stream for Debian Based Linux distros
 # set -x
 set -e
 
 DEBUG=${DEBUG:-0}
 
-# Standard Installation Script for BirdNET-stream for Debian Based Linux distros
-
 REQUIREMENTS="git ffmpeg python3-pip python3-dev"
-REPOSITORY="https://github.com/UncleSamulus/BirdNET-stream.git"
-
-# Update system
-update() {
-    sudo apt-get update
-    sudo apt-get upgrade -y
-}
+REPOSITORY=${REPOSITORY:-https://github.com/UncleSamulus/BirdNET-stream.git}
 
 debug() {
     if [ $DEBUG -eq 1 ]; then
@@ -32,7 +25,7 @@ install_requirements() {
     done
     if [ -n "$missing_requirements" ]; then
         debug "Installing missing requirements: $missing_requirements"
-        sudo apt-get install $missing_requirements
+        sudo apt-get install -y $missing_requirements
     fi
 }
 

@@ -5,7 +5,7 @@ This guide allow you to install BirdNET-stream step by step on your debian based
 For a one-liner installation, you can use the following command:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/birdnet-stream/birdnet-stream/master/install.sh | bash
+curl -sL https://raw.githubusercontent.com/UncleSamulus/BirdNET-stream/main/install.sh | bash
 ```
 
 ## Requirements
@@ -34,7 +34,7 @@ sudo apt-get install ffmpeg
 ### Clone BirdNET-stream repository
 
 ```bash
-git clone --recurse-submodules https://forge.chapril.org/UncleSamulus/BirdNET-stream.git
+git clone --recurse-submodules https://github.com/UncleSamulus/BirdNET-stream.git
 ```
 
 ### Setup python virtualenv and packages

@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS observation (
     `date` TEXT NOT NULL,
     `notes` TEXT,
     `confidence` REAL NOT NULL,
+    `verified` BOOLEAN NOT NULL CHECK (`verified` IN (0, 1)) DEFAULT 0,
     FOREIGN KEY(taxon_id) REFERENCES taxon(taxon_id),
     FOREIGN KEY(location_id) REFERENCES location(location_id)
 );

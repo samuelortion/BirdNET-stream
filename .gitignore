@@ -9,3 +9,5 @@ species_list.txt
 push.sh
 
 config/*.conf
+
+.vscode/

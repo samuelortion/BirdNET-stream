@@ -1,0 +1,36 @@
+version: '3.8'
+
+networks:
+  birdnet_network:
+
+services:
+  # database:
+  #   container_name: birdnet_database
+  #   image:
+
+  php:
+    container_name: birdnet_php
+    image: php:8.1-fpm
+    ports:
+      - "${PHP_FPM_PORT:-9001}:9000"
+
+
+  nginx:
+    container_name: birdnet_nginx
+    build:
+      context: ./docker/
+    environment:
+      SERVER_NAME: ${SERVER_NAME:-birdnet.local}
+      PHP_FPM_PORT: ${PHP_FPM_PORT:-9001}
+    restart: unless-stopped
+    volumes:
+      - ./www:/var/www/birdnet/
+      - ./www/nginx.conf:/etc/nginx/conf.d/birdnet.conf
+    ports:
+      - "81:80"
+    dependends_on:
+      - php
+
+  birdnet:
+    container_name: birdnet_analyzer
+    image: 
