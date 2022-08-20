@@ -136,7 +136,6 @@ install_web_interface() {
 }
 
 main() {
-    update
     install_requirements $REQUIREMENTS
     install_birdnetstream
     install_birdnetstream_services
