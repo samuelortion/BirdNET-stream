@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AppBundle\Connections\ConnectionObservations;
+use App\AppBundle\ConnectionObservations;
 
 class RecordsController extends AbstractController
 {
@@ -18,10 +18,10 @@ class RecordsController extends AbstractController
     }
     
     /**
-     * @Route("/records", name="records")
+     * @Route("/records/{date}", name="records", defaults={"date" = "now"})
      * @Route("/{_locale<%app.supported_locales%>}/records/{date}", name="records_i18n")
      */
-    public function records_index($date = "now")
+    public function records_index($date="now")
     {
         if ($date == "now") {
             $date = date("Y-m-d");
@@ -35,21 +35,37 @@ class RecordsController extends AbstractController
     }
 
     /**
-     * @Route("/records/delete/{basename}", name="record_delete")
-     * @Route("/{_locale<%app.supported_locales%>}/records/delete/{basename}", name="record_delete_i18n")
+     * @Route("/records/delete/all", name="record_selection_delete")
      */
-    public function delete_record(Connection $connection, $basename)
+    public function delete_all(Request $request)
     {
-        $this->connection = $connection;
-        $this->remove_record_by_basename($basename);
-        return $this->redirectToRoute('records_index');
+        $records = $request->request->filenames;
+        foreach($records as $record) {
+            $alright = $this->remove_record_by_basename($record);
+            if ($alright) {
+                return new Response("Selected records deleted.", Response::HTTP_OK);
+            }
+        }
+    }
+    
+    /**
+     * @Route("/records/delete/{record}", name="record_delete")
+     */
+    public function record_delete($record)
+    {
+        $alright = $this->remove_record_by_basename($record);
+        if ($alright) {
+                return new Response("Record $record deleted.", Response::HTTP_OK);
+        } else {
+            return new Response("Record deletion failed", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * @Route("/records/best", name="records_best")
      * @Route("/{_locale<%app.supported_locales%>}/records/best", name="records_best_i18n")
      */
-    public function best_records(Connection $connection)
+    public function best_records()
     {
         $this->render('records/best.html.twig', [
         ]);
@@ -100,6 +116,9 @@ class RecordsController extends AbstractController
                 rmdir($model_out_dir);
             /** Remove database entry associated with this filename */
             $this->remove_observations_from_record($basename);
+            return true;
+        } else {
+            return false;
         }
     }
 

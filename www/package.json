@@ -17,6 +17,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "axios": "^0.27.2",
         "feather-icons": "^4.29.0"
     }
 }

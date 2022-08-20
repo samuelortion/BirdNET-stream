@@ -5,12 +5,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\DBAL\Connection;
-use App\AppBundle\Connections\ConnectionObservations;
+use App\AppBundle\ConnectionObservations;
 
 class HomeController extends AbstractController
 {
-    private Connection $connection;
+    private ConnectionObservations $connection;
 
     public function __construct(ConnectionObservations $connection)
     {

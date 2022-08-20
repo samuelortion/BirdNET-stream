@@ -1,8 +1,10 @@
-<div class="manager">
-    <button class="button" id="select-all" title="{{ "Select all" | trans }}">
+
+
+<div class="manager" {{ stimulus_controller('manage-records') }}>
+    <button class="button" id="select-all" title="{{ "Select all" | trans }}" {{ stimulus_action('manage-records', 'select_all') }}>
         <i data-feather="check-square"></i>
     </button>
-    <button class="delete button" title="{{ "Delete selected" | trans }}">
+    <button class="delete button" title="{{ "Delete selected" | trans }}" {{ stimulus_action('manage-records', 'delete_selected') }}>
         <i data-feather="trash-2"></i>
     </button>
 </div>

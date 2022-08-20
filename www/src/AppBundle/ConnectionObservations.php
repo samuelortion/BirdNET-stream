@@ -1,5 +1,5 @@
 <?php
-namespace App\AppBundle\Connections;
+namespace App\AppBundle;
 use Doctrine\DBAL\Connection;
 
 class ConnectionObservations extends Connection

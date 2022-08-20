@@ -1,245 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="Tvyg0Qx" resname="About">
-        <source>About</source>
-        <target>À propos</target>
-      </trans-unit>
-      <trans-unit id="VAw_dLX" resname="BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.">
-        <source>BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.</source>
-        <target>BirdNET-stream est un logiciel d'analyse en temps réel de l'environement sonore basé sur BirdNET.</target>
-      </trans-unit>
-      <trans-unit id="vvz1r3A" resname="It aims to be able to run on any computer with a microphone.">
-        <source>It aims to be able to run on any computer with a microphone.</source>
-        <target>Il cherche à être fonctionnel sur tout ordinateur équipé d'un microphone.</target>
-      </trans-unit>
-      <trans-unit id="2VCCou5" resname="Author">
-        <source>Author</source>
-        <target>Auteur</target>
-      </trans-unit>
-      <trans-unit id="1zd9FJ_" resname="This project is made with &amp;hearts; by Samuel ORTION.">
-        <source>This project is made with &amp;hearts; by Samuel ORTION.</source>
-        <target><![CDATA[Ce projet est fait avec &hearts; par Samuel ORTION.]]></target>
-      </trans-unit>
-      <trans-unit id="wBHWCXv" resname="License">
-        <source>License</source>
-        <target>Licence</target>
-      </trans-unit>
-      <trans-unit id="6AM7sRb" resname="BirdNET-stream is licensed under the">
-        <source>BirdNET-stream is licensed under the</source>
-        <target>BirdNET-stream est sous licence</target>
-      </trans-unit>
-      <trans-unit id="nNkktM9" resname="BirdNET-Analyzer, on which this project relies, is licensed under">
-        <source>BirdNET-Analyzer, on which this project relies, is licensed under</source>
-        <target>BirdNET-Analyzer, sur qui ce projet repose, est sous licence</target>
-      </trans-unit>
       <trans-unit id="39aF.j_" resname="Frequency charts">
         <source>Frequency charts</source>
-        <target>Graphe de fréquence</target>
+        <target state="translated">Gráfico de frecuencia </target>
       </trans-unit>
       <trans-unit id="SJtk1Aa" resname="No charts available">
         <source>No charts available</source>
-        <target>Pas de graphe disponible</target>
+        <target state="translated">No grafico disponible</target>
       </trans-unit>
       <trans-unit id="OnhpU4i" resname="Home">
         <source>Home</source>
-        <target>Accueil</target>
+        <target state="translated">Pagina principal</target>
+      </trans-unit>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target state="translated">A proposito</target>
       </trans-unit>
       <trans-unit id="Lc4yjyd" resname="Today's Detections">
         <source>Today's Detections</source>
-        <target>Détection aujourd'hui</target>
+        <target state="translated">Las detecciones de hoy</target>
       </trans-unit>
       <trans-unit id="11.I7BE" resname="Live Spectrogram">
         <source>Live Spectrogram</source>
-        <target>Spectrogramme en temps réel</target>
+        <target state="translated">espectrograma en vivo</target>
       </trans-unit>
       <trans-unit id="plYQfpn" resname="Statistics">
         <source>Statistics</source>
-        <target>Statistiques</target>
+        <target state="translated">estadisticas</target>
       </trans-unit>
       <trans-unit id="YMVtZqE" resname="Recordings">
         <source>Recordings</source>
-        <target>Enregistrements</target>
+        <target state="translated">Grabaciones</target>
       </trans-unit>
       <trans-unit id="GiWvoLV" resname="Best Recordings">
         <source>Best Recordings</source>
-        <target>Meilleurs Enregistrements</target>
+        <target state="translated">mejores grabaciones </target>
       </trans-unit>
       <trans-unit id="4IfwRtw" resname="View Logs">
         <source>View Logs</source>
-        <target>Voir les logs</target>
+        <target state="translated">Ver registros</target>
       </trans-unit>
       <trans-unit id="kg5BPH1" resname="Status">
         <source>Status</source>
-        <target>Status</target>
-      </trans-unit>
-      <trans-unit id="mcQKtAW" resname="Date">
-        <source>Date</source>
-        <target>Date</target>
-      </trans-unit>
-      <trans-unit id="zFIH2Rd" resname="Enter a date in this format YYYY-MM-DD">
-        <source>Enter a date in this format YYYY-MM-DD</source>
-        <target>Entrez une date au format YYYY-MM-DD</target>
-      </trans-unit>
-      <trans-unit id="bMhRm5F" resname="Go">
-        <source>Go</source>
-        <target>Go</target>
-      </trans-unit>
-      <trans-unit id="6iEA3Im" resname="Logs">
-        <source>Logs</source>
-        <target>Logs</target>
-      </trans-unit>
-      <trans-unit id="yIMayeg" resname="No logs available">
-        <source>No logs available</source>
-        <target>Pas de logs disponible</target>
-      </trans-unit>
-      <trans-unit id="_RN0U0G" resname="Spectrogram">
-        <source>Spectrogram</source>
-        <target>Spectrogramme</target>
-      </trans-unit>
-      <trans-unit id="cOE9kUb" resname="Launch Live Spectrogram">
-        <source>Launch Live Spectrogram</source>
-        <target>Lancer le Spectrogramme en temps réel</target>
-      </trans-unit>
-      <trans-unit id="VF2TvYg" resname="No audio sources yet">
-        <source>No audio sources yet</source>
-        <target>Pas de source audio pour le moment</target>
-      </trans-unit>
-      <trans-unit id="b3yIXEw" resname="Quick Stats">
-        <source>Quick Stats</source>
-        <target>Statistiques rapides</target>
-      </trans-unit>
-      <trans-unit id="EVOzKuV" resname="Most recorded species">
-        <source>Most recorded species</source>
-        <target>Espèce la plus souvent enregistrée</target>
-      </trans-unit>
-      <trans-unit id="BpW1Y6z" resname="with">
-        <source>with</source>
-        <target>avec</target>
-      </trans-unit>
-      <trans-unit id="qlr0CE8" resname="contacts">
-        <source>contacts</source>
-        <target>contacts</target>
-      </trans-unit>
-      <trans-unit id="pHx6Sb8" resname="No species in database.">
-        <source>No species in database.</source>
-        <target>Aucune espèce dans la base de donnée.</target>
-      </trans-unit>
-      <trans-unit id="kbbkF9." resname="Last detected species">
-        <source>Last detected species</source>
-        <target>Dernière espèce détectée</target>
-      </trans-unit>
-      <trans-unit id="UfL722." resname="AI confidence">
-        <source>AI confidence</source>
-        <target>Niveau de confiance</target>
-      </trans-unit>
-      <trans-unit id="4PT3Z6y" resname="today">
-        <source>today</source>
-        <target>aujourd'hui</target>
-      </trans-unit>
-      <trans-unit id="uNMehSc" resname="on">
-        <source>on</source>
-        <target>le</target>
-      </trans-unit>
-      <trans-unit id="UXnWgGD" resname="No species in database">
-        <source>No species in database</source>
-        <target>Aucune espèce dans la base de données</target>
-      </trans-unit>
-      <trans-unit id="O.a8OVk" resname="Today's contacts for">
-        <source>Today's contacts for</source>
-        <target>Contacts d'aujourd'hui pour</target>
-      </trans-unit>
-      <trans-unit id="1XvGb5I" resname="Contacts on">
-        <source>Contacts on</source>
-        <target>Contacts le</target>
-      </trans-unit>
-      <trans-unit id="EMIrz0x" resname="for">
-        <source>for</source>
-        <target>pour</target>
-      </trans-unit>
-      <trans-unit id="tKc2V0D" resname="Stats">
-        <source>Stats</source>
-        <target>Stats</target>
-      </trans-unit>
-      <trans-unit id="j93Wzbi" resname="Contact count:">
-        <source>Contact count:</source>
-        <target>Nombre de contact:</target>
-      </trans-unit>
-      <trans-unit id="ALgyC6W" resname="Max confidence">
-        <source>Max confidence</source>
-        <target>Niveau de confiance maximal</target>
-      </trans-unit>
-      <trans-unit id="WTXVn0G" resname="Contact records">
-        <source>Contact records</source>
-        <target>Enregistrement du contact</target>
-      </trans-unit>
-      <trans-unit id="lxuXQjW" resname="Filename">
-        <source>Filename</source>
-        <target>Fichier</target>
-      </trans-unit>
-      <trans-unit id="M7k0ds9" resname="Time">
-        <source>Time</source>
-        <target>Heure</target>
-      </trans-unit>
-      <trans-unit id="ZCLj549" resname="Confidence">
-        <source>Confidence</source>
-        <target>Confiance</target>
-      </trans-unit>
-      <trans-unit id="vBuIkH0" resname="Audio">
-        <source>Audio</source>
-        <target>Audio</target>
-      </trans-unit>
-      <trans-unit id="I3eaEC5" resname="Select this record">
-        <source>Select this record</source>
-        <target>Sélectionner cet enregistrement</target>
-      </trans-unit>
-      <trans-unit id="NBh3Jvf" resname="Download audio file">
-        <source>Download audio file</source>
-        <target>Télécharger le fichier audio</target>
-      </trans-unit>
-      <trans-unit id="gp0zWYd" resname="No records this day for this species">
-        <source>No records this day for this species</source>
-        <target>Pas d'entrement ce jour pour cette espèce</target>
-      </trans-unit>
-      <trans-unit id="H8mjh2V" resname="Select all">
-        <source>Select all</source>
-        <target>Séléctionner tout</target>
-      </trans-unit>
-      <trans-unit id="0qtdRv7" resname="Delete selected">
-        <source>Delete selected</source>
-        <target>Supprimer la sélection</target>
-      </trans-unit>
-      <trans-unit id="XdPmSCB" resname="Today's detected species">
-        <source>Today's detected species</source>
-        <target>Espèces détectées aujourd'hui</target>
-      </trans-unit>
-      <trans-unit id="ujkYinn" resname="Detected species on">
-        <source>Detected species on</source>
-        <target>Espèces détectées le</target>
-      </trans-unit>
-      <trans-unit id="tZEkkkO" resname="No species detected this day">
-        <source>No species detected this day</source>
-        <target>Aucune espèce détectée ce jour</target>
-      </trans-unit>
-      <trans-unit id="AmHJKRh" resname="Services status">
-        <source>Services status</source>
-        <target>Status des services</target>
-      </trans-unit>
-      <trans-unit id="hb1Ij3K" resname="No status available">
-        <source>No status available</source>
-        <target>Aucun status disponible</target>
-      </trans-unit>
-      <trans-unit id="OzJoKh6" resname="Welcome to BirdNET-stream !">
-        <source>Welcome to BirdNET-stream !</source>
-        <target>Bienvenue sur BirdNET-stream !</target>
+        <target state="translated">estatuto</target>
       </trans-unit>
       <trans-unit id="yQxt8UA" resname="Not implemented yet">
         <source>Not implemented yet</source>
-        <target>__Not implemented yet</target>
+        <target state="translated">Aun no se ha implementado</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target state="translated">Fecha</target>
+      </trans-unit>
+      <trans-unit id="zFIH2Rd" resname="Enter a date in this format YYYY-MM-DD">
+        <source>Enter a date in this format YYYY-MM-DD</source>
+        <target state="translated">introducir una fecha en este formato  YYYY-MM-DD</target>
+      </trans-unit>
+      <trans-unit id="bMhRm5F" resname="Go">
+        <source>Go</source>
+        <target>__Go</target>
+      </trans-unit>
+      <trans-unit id="6iEA3Im" resname="Logs">
+        <source>Logs</source>
+        <target>__Logs</target>
+      </trans-unit>
+      <trans-unit id="yIMayeg" resname="No logs available">
+        <source>No logs available</source>
+        <target>__No logs available</target>
+      </trans-unit>
+      <trans-unit id="VAw_dLX" resname="BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.">
+        <source>BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.</source>
+        <target>__BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.</target>
+      </trans-unit>
+      <trans-unit id="vvz1r3A" resname="It aims to be able to run on any computer with a microphone.">
+        <source>It aims to be able to run on any computer with a microphone.</source>
+        <target>__It aims to be able to run on any computer with a microphone.</target>
+      </trans-unit>
+      <trans-unit id="2VCCou5" resname="Author">
+        <source>Author</source>
+        <target>__Author</target>
+      </trans-unit>
+      <trans-unit id="1zd9FJ_" resname="This project is made with &amp;hearts; by Samuel ORTION.">
+        <source>This project is made with &amp;hearts; by Samuel ORTION.</source>
+        <target><![CDATA[__This project is made with &hearts; by Samuel ORTION.]]></target>
+      </trans-unit>
+      <trans-unit id="wBHWCXv" resname="License">
+        <source>License</source>
+        <target>__License</target>
+      </trans-unit>
+      <trans-unit id="6AM7sRb" resname="BirdNET-stream is licensed under the">
+        <source>BirdNET-stream is licensed under the</source>
+        <target>__BirdNET-stream is licensed under the</target>
+      </trans-unit>
+      <trans-unit id="nNkktM9" resname="BirdNET-Analyzer, on which this project relies, is licensed under">
+        <source>BirdNET-Analyzer, on which this project relies, is licensed under</source>
+        <target>__BirdNET-Analyzer, on which this project relies, is licensed under</target>
+      </trans-unit>
+      <trans-unit id="_RN0U0G" resname="Spectrogram">
+        <source>Spectrogram</source>
+        <target>__Spectrogram</target>
+      </trans-unit>
+      <trans-unit id="cOE9kUb" resname="Launch Live Spectrogram">
+        <source>Launch Live Spectrogram</source>
+        <target>__Launch Live Spectrogram</target>
+      </trans-unit>
+      <trans-unit id="VF2TvYg" resname="No audio sources yet">
+        <source>No audio sources yet</source>
+        <target>__No audio sources yet</target>
+      </trans-unit>
+      <trans-unit id="b3yIXEw" resname="Quick Stats">
+        <source>Quick Stats</source>
+        <target>__Quick Stats</target>
+      </trans-unit>
+      <trans-unit id="EVOzKuV" resname="Most recorded species">
+        <source>Most recorded species</source>
+        <target>__Most recorded species</target>
+      </trans-unit>
+      <trans-unit id="BpW1Y6z" resname="with">
+        <source>with</source>
+        <target>__with</target>
+      </trans-unit>
+      <trans-unit id="qlr0CE8" resname="contacts">
+        <source>contacts</source>
+        <target>__contacts</target>
+      </trans-unit>
+      <trans-unit id="pHx6Sb8" resname="No species in database.">
+        <source>No species in database.</source>
+        <target>__No species in database.</target>
+      </trans-unit>
+      <trans-unit id="kbbkF9." resname="Last detected species">
+        <source>Last detected species</source>
+        <target>__Last detected species</target>
+      </trans-unit>
+      <trans-unit id="UfL722." resname="AI confidence">
+        <source>AI confidence</source>
+        <target>__AI confidence</target>
+      </trans-unit>
+      <trans-unit id="4PT3Z6y" resname="today">
+        <source>today</source>
+        <target>__today</target>
+      </trans-unit>
+      <trans-unit id="uNMehSc" resname="on">
+        <source>on</source>
+        <target>__on</target>
+      </trans-unit>
+      <trans-unit id="UXnWgGD" resname="No species in database">
+        <source>No species in database</source>
+        <target>__No species in database</target>
+      </trans-unit>
+      <trans-unit id="O.a8OVk" resname="Today's contacts for">
+        <source>Today's contacts for</source>
+        <target>__Today's contacts for</target>
+      </trans-unit>
+      <trans-unit id="1XvGb5I" resname="Contacts on">
+        <source>Contacts on</source>
+        <target>__Contacts on</target>
+      </trans-unit>
+      <trans-unit id="EMIrz0x" resname="for">
+        <source>for</source>
+        <target>__for</target>
+      </trans-unit>
+      <trans-unit id="tKc2V0D" resname="Stats">
+        <source>Stats</source>
+        <target>__Stats</target>
+      </trans-unit>
+      <trans-unit id="j93Wzbi" resname="Contact count:">
+        <source>Contact count:</source>
+        <target>__Contact count:</target>
+      </trans-unit>
+      <trans-unit id="ALgyC6W" resname="Max confidence">
+        <source>Max confidence</source>
+        <target>__Max confidence</target>
+      </trans-unit>
+      <trans-unit id="WTXVn0G" resname="Contact records">
+        <source>Contact records</source>
+        <target>__Contact records</target>
+      </trans-unit>
+      <trans-unit id="lxuXQjW" resname="Filename">
+        <source>Filename</source>
+        <target>__Filename</target>
+      </trans-unit>
+      <trans-unit id="M7k0ds9" resname="Time">
+        <source>Time</source>
+        <target>__Time</target>
+      </trans-unit>
+      <trans-unit id="ZCLj549" resname="Confidence">
+        <source>Confidence</source>
+        <target>__Confidence</target>
+      </trans-unit>
+      <trans-unit id="vBuIkH0" resname="Audio">
+        <source>Audio</source>
+        <target>__Audio</target>
+      </trans-unit>
+      <trans-unit id="I3eaEC5" resname="Select this record">
+        <source>Select this record</source>
+        <target>__Select this record</target>
+      </trans-unit>
+      <trans-unit id="NBh3Jvf" resname="Download audio file">
+        <source>Download audio file</source>
+        <target>__Download audio file</target>
+      </trans-unit>
+      <trans-unit id="gp0zWYd" resname="No records this day for this species">
+        <source>No records this day for this species</source>
+        <target>__No records this day for this species</target>
+      </trans-unit>
+      <trans-unit id="H8mjh2V" resname="Select all">
+        <source>Select all</source>
+        <target>__Select all</target>
+      </trans-unit>
+      <trans-unit id="0qtdRv7" resname="Delete selected">
+        <source>Delete selected</source>
+        <target>__Delete selected</target>
+      </trans-unit>
+      <trans-unit id="XdPmSCB" resname="Today's detected species">
+        <source>Today's detected species</source>
+        <target>__Today's detected species</target>
+      </trans-unit>
+      <trans-unit id="ujkYinn" resname="Detected species on">
+        <source>Detected species on</source>
+        <target>__Detected species on</target>
+      </trans-unit>
+      <trans-unit id="tZEkkkO" resname="No species detected this day">
+        <source>No species detected this day</source>
+        <target>__No species detected this day</target>
+      </trans-unit>
+      <trans-unit id="AmHJKRh" resname="Services status">
+        <source>Services status</source>
+        <target>__Services status</target>
+      </trans-unit>
+      <trans-unit id="hb1Ij3K" resname="No status available">
+        <source>No status available</source>
+        <target>__No status available</target>
+      </trans-unit>
+      <trans-unit id="OzJoKh6" resname="Welcome to BirdNET-stream !">
+        <source>Welcome to BirdNET-stream !</source>
+        <target>__Welcome to BirdNET-stream !</target>
       </trans-unit>
       <trans-unit id="T_YMEAK" resname="Disk usage">
         <source>Disk usage</source>

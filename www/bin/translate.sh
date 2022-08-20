@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
+LANGUAGES="fr es"
 # Extract and update translation files
-php bin/console translation:extract --dump-messages fr
-
-php bin/console translation:extract --force fr
+for LANGUAGE in $LANGUAGES; do
+    php bin/console translation:extract --dump-messages $LANGUAGE
+    php bin/console translation:extract --force $LANGUAGE
+done

@@ -47,20 +47,31 @@
                     </thead>
                     <tbody>
                         {% for record in records %}
-                            <tr>
+                            <tr {{ stimulus_controller('manage-records') }}>
                                 <td>
-                                    <input title="{{ "Select this record" | trans }}" type="checkbox" name="select-file" value="{{ record.audio_file }}">
+                                    <input title="{{ "Select this record" | trans }}" type="checkbox" class="select-record" value="{{ record.audio_file }}" {{ stimulus_target('manage-records', 'current') }}>
                                 </td>
                                 <td>
-                                    <a title="{{ "Download audio file" | trans }}" href="/media/records/{{ record.audio_file }}">
+                                    
                                     {{ record.audio_file }}
                                     </a>
                                 </td>
                                 <td>{{ record.date | date("H:m") }}</td>
                                 <td>{{ record.confidence }}</td>
                                 <td>
-                                    {% include "records/player.html.twig" with { "filename": record.audio_file } only %}
-                                    {% include "records/delete_button.html.twig" with { "filename": record.audio_file } only %}                                </td>
+                                    <div class="controlls container row">
+                                        {% include "records/player.html.twig" with { "filename": record.audio_file } only %}
+                                        {% include "records/delete_button.html.twig" with { "filename": record.audio_file } only %}  
+                                        <a class="button" title="{{ "Download audio file" | trans }}" href="/media/records/{{ record.audio_file }}">
+                                            <i data-feather="download"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button {{ stimulus_action('manage-records', 'mark_as_verified') }} class="button" title="{{ "Mark this record as verified"|trans }}">
+                                        <i data-feather="eye"></i>
+                                    </button>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -70,5 +81,4 @@
             {% endif %}
         </div>
     {% endif %}
-
 {% endblock %}

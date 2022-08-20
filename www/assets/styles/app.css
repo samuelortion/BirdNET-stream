@@ -209,11 +209,6 @@ li {
     list-style: none;
 }
 
-li,
-td {
-    align-items: center;
-}
-
 .dropdown-toggle:hover {
     background-color: #900;
     color: white

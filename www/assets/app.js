@@ -13,11 +13,12 @@ import './styles/menu.css';
 import './bootstrap';
 
 import feather from 'feather-icons';
+import { version } from 'core-js';
 feather.replace();
 
 /** Update css variables --{header, footer}-height 
  * by querying elements real height */
-(function() {
+(function () {
     let css_root = document.querySelector(':root');
     let header = document.getElementsByTagName('header')[0];
     let header_height = header.clientHeight;
@@ -25,7 +26,15 @@ feather.replace();
     let footer = document.getElementsByTagName('footer')[0];
     let footer_height = footer.clientHeight;
     css_root.style.setProperty('--footer-height', footer_height + 'px');
-    
+
+})();
+
+/** Add git version in web interface
+ */
+(function () {
+    let version_span = document.querySelector('.version-number');
+    version_span.textContent = `${VERSION}`;
+    console.debug("Version: " + VERSION);
 })();
 
 try {
