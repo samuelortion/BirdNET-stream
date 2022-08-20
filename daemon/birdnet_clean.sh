@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 ##
-## Clean up var folder from useless files
+## Clean up var folder from useless files (e.g empty wav, audio with no bird, etc)
 ##
 
 set -e
