@@ -3,7 +3,7 @@
 set -e 
 # set -x
 
-config_filepath="./config/analyzer.conf"
+config_filepath="./config/birdnet.conf"
 
 if [ -f "$config_filepath" ]; then
     source "$config_filepath"

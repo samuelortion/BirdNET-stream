@@ -3,7 +3,7 @@
 
 set -e
 
-source ./config/analyzer.conf
+source ./config/birdnet.conf
 
 # Create database in case it was not created yet
 ./daemon/database/scripts/create.sh
@@ -23,7 +23,7 @@ get_taxon_id() {
 }
 
 insert_taxon() {
-    query $DATABASE "INSERT INTO taxon (scientific_name, common_name) VALUES (\"$1\", \"$2\")"
+    query "INSERT INTO taxon (scientific_name, common_name) VALUES (\"$1\", \"$2\")"
 }
 
 insert_location() {

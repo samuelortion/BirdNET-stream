@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-DEBUG=${DEBUG:-0}
+DEBUG=${DEBUG:-1}
 
 export PULSE_RUNTIME_PATH="/run/user/$(id -u)/pulse/"
 
@@ -23,7 +23,7 @@ record_loop() {
     DURATION=$2
     debug "New recording loop."
     while true; do
-        record $DEVICE $DURATION
+        record_device $DEVICE $DURATION
     done
 }
 
@@ -33,7 +33,7 @@ record_stream() {
     local STREAM=$1
     local DURATION=$2
     local debug "Recording from $STREAM for $DURATION seconds"
-    ffmpeg $FFMPEG_OPTIONS  -f  -i ${DEVICE} -t ${DURATION} file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+    ffmpeg $FFMPEG_OPTIONS -f -i ${DEVICE} -t ${DURATION} file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
 record_device() {
@@ -43,7 +43,7 @@ record_device() {
     ffmpeg $FFMPEG_OPTIONS -f pulse -i ${DEVICE} -t ${DURATION} -af "volume=$RECORDING_AMPLIFY" file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
-config_filepath="./config/analyzer.conf"
+config_filepath="./config/birdnet.conf"
 
 if [ -f "$config_filepath" ]; then
     source "$config_filepath"
@@ -56,18 +56,18 @@ check_folder
 
 [ -z $RECORDING_DURATION ] && RECORDING_DURATION=15
 
-if [[ -z $AUDIO_DEVICE ]]; then
-    echo "AUDIO_DEVICE is not set"
-    exit 1
-fi
-
 if [[ $AUDIO_RECORDING = "true" ]]; then
-    record_loop $AUDIO_DEVICE $RECORDING_DURATION &
+    debug "Recording with on board device"
+    if [[ -z $AUDIO_DEVICE ]]; then
+        echo "AUDIO_DEVICE is not set"
+        exit 1
+    fi
+    record_loop $AUDIO_DEVICE $RECORDING_DURATION
 fi
 
 if [[ $AUDIO_STATIONS = "true" ]]; then
     for station in $(ls ./config/stations/*.conf); do
         source $station
-        record_stream $STATION_URL $RECORDING_DURATION &
+        record_stream $STATION_URL $RECORDING_DURATION
     done
 fi

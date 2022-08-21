@@ -16,6 +16,7 @@ CHUNK_FOLDER="./var/chunks"
 AUDIO_DEVICE="default"
 # Virtual env for BirdNET AI with required packages
 PYTHON_VENV="./.venv/birdnet-stream"
+WORKDIR="/home/$USER/BirdNET-stream"
 # Database location
 DATABASE="./var/db.sqlite"
 

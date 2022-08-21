@@ -10,8 +10,8 @@ class DisksController extends AbstractController
 {
 
     /**
-     * @Route("/disks/", name="disks_index")
-     * @Route("{_locale}/disks/", name="disks_index_i18n")
+     * @Route("/disks/", name="disks")
+     * @Route("{_locale}/disks/", name="disks_i18n")
      */
     public function index() {
         return $this->render('disks/index.html.twig', [

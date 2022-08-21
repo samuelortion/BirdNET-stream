@@ -7,7 +7,7 @@ verbose = False
 
 """Load config"""
 def load_conf():
-    with open("./config/analyzer.conf", "r") as f:
+    with open("./config/birdnet.conf", "r") as f:
         conf = f.readlines()
         res = dict(map(str.strip, sub.split('=', 1)) for sub in conf if '=' in sub)
     return res

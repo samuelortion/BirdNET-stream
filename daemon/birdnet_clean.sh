@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 ##
-## Clean up var folder from useless files
+## Clean up var folder from useless files (e.g empty wav, audio with no bird, etc)
 ##
 
 set -e
@@ -13,7 +13,7 @@ debug() {
     fi
 }
 
-config_filepath="./config/analyzer.conf"
+config_filepath="./config/birdnet.conf"
 
 if [ -f "$config_filepath" ]; then
     source "$config_filepath"

@@ -1,0 +1,56 @@
+server {
+	listen 80;
+	server_name birdnet.lab.home;
+
+	location / {
+		return 302 https://$host$request_uri;
+	}
+
+    location /.well-known/acme-challenge {
+        alias /var/www/html/.well-known/acme-challenge;
+        allow all;
+    }
+}
+
+server {
+	listen 443 ssl;
+	server_name birdnet.lab.home;
+
+	fastcgi_buffers  16 16k;
+    fastcgi_buffer_size  32k;	
+
+	root  <SYMFONY_PUBLIC>;
+
+	ssl_certificate  <CERTIFICATE>;
+	ssl_certificate_key  <PRIVATE_KEY>;
+
+	index index.php;
+
+	location / {
+    		try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+	location ^~ /media/records {
+		autoindex on;
+		alias <RECORDS_FOLDER>;
+	}
+	
+	location ^~ /media/charts {
+		autoindex on;
+		alias <CHARTS_FOLDER>;
+	}
+
+    location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi.conf;
+    }
+
+	location /stream {
+		proxy_pass http://localhost:8000/stream;
+    }
+
+	access_log /var/log/nginx/birdnet/birdnet-access.log;
+	error_log  /var/log/nginx/birdnet/birdnet-error.log error;
+}
