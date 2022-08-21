@@ -8,6 +8,18 @@ For a one-liner installation, you can use the following command:
 curl -sL https://raw.githubusercontent.com/UncleSamulus/BirdNET-stream/main/install.sh | bash
 ```
 
+For debug purposes, you can use the following command, it will log the installation steps to the console:
+
+```bash
+DEBUG=1 ./install.sh
+```
+
+If you need to use a specific branch (e.g. dev), you can use the following command:
+
+```bash
+BRANCH=dev ./install.sh
+```
+
 ## Requirements
 
 - git

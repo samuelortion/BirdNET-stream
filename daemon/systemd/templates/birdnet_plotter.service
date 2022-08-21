@@ -5,7 +5,7 @@ Description=BirdNET-stream plotter
 User=<USER>
 Group=<GROUP>
 WorkingDirectory=<DIR>
-ExecStart=./.venv/birdnet-stream/bin/python3 ./daemon/plotter/chart.py
+ExecStart=<VENV>/bin/python3 ./daemon/plotter/chart.py
 Type=simple
 
 [Install]
