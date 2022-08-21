@@ -8,6 +8,7 @@
 /public/bundles/
 /var/
 /vendor/
+yarn.lock
 ###< symfony/framework-bundle ###
 
 ###> symfony/webpack-encore-bundle ###

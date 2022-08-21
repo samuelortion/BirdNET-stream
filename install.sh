@@ -5,7 +5,7 @@ set -e
 
 DEBUG=${DEBUG:-0}
 
-REQUIREMENTS="git wget ffmpeg python3 python3-pip python3-dev python3-venv gzip"
+REQUIREMENTS="git wget ffmpeg python3 python3-pip python3-dev python3-venv g{,un}zip sqlite3"
 REPOSITORY=${REPOSITORY:-https://github.com/UncleSamulus/BirdNET-stream.git}
 BRANCH=${BRANCH:-main}
 WORKDIR="$(pwd)/BirdNET-stream"
@@ -206,6 +206,7 @@ install_config() {
 
 update_permissions() {
     debug "Updating permissions (may not work properly)"
+    cd $WORKDIR
     sudo chown -R $USER:birdnet "$WORKDIR"
     sudo chown -R $USER:birdnet "$CHUNK_FOLDER"
     sudo chmod -R 755 "$CHUNK_FOLDER"
