@@ -12,6 +12,7 @@ CONFIG = {
     "palette": "Greens",
     "db": "./var/db.sqlite",
     "date": datetime.now().strftime("%Y-%m-%d")
+    # "date": "2022-08-15"
 }
 
 db = sqlite3.connect(CONFIG['db'])
@@ -34,8 +35,8 @@ if top_on_date.empty:
 df_top_on_date = df_on_date[df_on_date['common_name'].isin(top_on_date.index)]
 
 # Create a figure with 2 subplots
-fig, axs = plt.subplots(1, 2, figsize=(15, 4), gridspec_kw=dict(
-    width_ratios=[3, 6]))
+fig, axs = plt.subplots(1, 2, figsize=(20, 5), gridspec_kw=dict(
+    width_ratios=[2, 6]))
 plt.subplots_adjust(left=None, bottom=None, right=None,
                     top=None, wspace=0, hspace=0)
 
@@ -86,9 +87,8 @@ for _, spine in plot.spines.items():
 
 plot.set(ylabel=None)
 plot.set(xlabel="Hour of day")
-fig.subplots_adjust(top=0.9)
 plt.suptitle(f"Top {CONFIG['readings']} species on {CONFIG['date']}", fontsize=14)
-plt.title(f"(Updated on {datetime.now().strftime('%Y/%m-%d %H:%M')})")
+plt.text(15, 11, f"(Updated on {datetime.now().strftime('%Y/%m-%d %H:%M')})")
 plt.savefig(f"./var/charts/chart_{CONFIG['date']}.png", dpi=300)
 plt.close()
 
