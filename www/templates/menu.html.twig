@@ -38,14 +38,23 @@
           } %}
         </ul>
       </li>
-      {% include 'utils/nav-item.html.twig' with {
-        route: 'logs',
-        text: 'View Logs'|trans
-      } %}
-      {% include 'utils/nav-item.html.twig' with {
-        route: 'services_status',
-        text: 'Status'|trans
-      } %}
+      <li class="dropdown">
+        <span class="dropdown-toggle">{{ "Tools"|trans }}</span>
+        <ul class="dropdown-content">
+          {% include 'utils/nav-item.html.twig' with {
+            route: 'logs',
+            text: 'View Logs'|trans
+          } %}
+          {% include 'utils/nav-item.html.twig' with {
+            route: 'services_status',
+            text: 'Status'|trans
+          } %}
+          {% include "utils/nav-item.html.twig" with {
+            route: 'disks',
+            text: 'Disks'|trans
+          } %}
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>

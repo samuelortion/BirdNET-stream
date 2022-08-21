@@ -9,7 +9,7 @@
 ```bash
 git clone https://github.com/UncleSamulus/BirdNET-stream.git
 cd ./BirdNET-stream/docker/all
-docker build -t "birdnet_all:latest" .
+docker build -t "birdnet_all:latest" -f ./docker/all/Dockerfile .
 ```
 
 If `docker` command does not work because of unsufficient permissions, you could add your user to `docker` group:

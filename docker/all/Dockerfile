@@ -10,11 +10,13 @@ WORKDIR /home/birdnet
 # Upgrade system
 RUN apt-get update && apt-get upgrade -y
 
-# Install curl
+# Install sudo
 RUN apt-get install -y \
-    curl \
-    sudo
+    sudo \
+    git
 
-RUN curl -sL https://raw.githubusercontent.com/UncleSamulus/BirdNET-stream/master/install.sh | bash
+COPY ./install.sh install.sh
+
+RUN bash ./install.sh
 
 USER birdnet

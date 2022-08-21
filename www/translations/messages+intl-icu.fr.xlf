@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="VAw_dLX" resname="BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.">
         <source>BirdNET-stream is a realtime soundscape analyzis software powered by BirdNET AI.</source>
-        <target>BirdNET-stream est un logiciel d'analyse en temps réel de l'environement sonore basé sur BirdNET.</target>
+        <target>BirdNET-stream est un logiciel d'analyse en temps réel de l'environnement sonore basé sur BirdNET.</target>
       </trans-unit>
       <trans-unit id="vvz1r3A" resname="It aims to be able to run on any computer with a microphone.">
         <source>It aims to be able to run on any computer with a microphone.</source>

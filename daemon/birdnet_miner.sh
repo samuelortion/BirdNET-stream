@@ -16,7 +16,7 @@ debug() {
 source ./daemon/database/scripts/database.sh
 
 # Load config
-source ./config/analyzer.conf
+source ./config/birdnet.conf
 # Check config
 if [[ -z ${CHUNK_FOLDER} ]]; then
     echo "CHUNK_FOLDER is not set"

@@ -1,15 +1,13 @@
 #! /usr/bin/env bash
-
+# Fix permissions on BirdNET-stream files when messed up
 set -e
 
-DEBUG=${DEBUG:-1}
+DEBUG=${DEBUG:-0}
 debug() {
-    if [ $DEBUG -eq 1 ]; then
-        echo "$1"
-    fi
+    [ $DEBUG -eq 1 ] && echo "$@"
 }
 
-config_filepath="./config/analyzer.conf"
+config_filepath="./config/birdnet.conf"
 
 if [ -f "$config_filepath" ]; then
     source "$config_filepath"
@@ -17,7 +15,6 @@ else
     echo "Config file not found: $config_filepath"
     exit 1
 fi
-
 
 GROUP=birdnet
 

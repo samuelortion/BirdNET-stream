@@ -170,7 +170,7 @@ Launch and enable icecast:
 sudo systemctl enable --now icecast2
 ```
 
-Adapt `config/analyzer.conf` to this configuration:
+Adapt `config/birdnet.conf` to this configuration:
 
 ```conf
 ICECAST_USER=source

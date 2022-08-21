@@ -18,7 +18,7 @@ stream() {
         -f mp3 "icecast://source:${ICECAST_PASSWORD}@${ICECAST_HOST}:${ICECAST_PORT}/${ICECAST_MOUNT}" -listen 1
 }
 
-config_filepath="./config/analyzer.conf"
+config_filepath="./config/birdnet.conf"
 
 if [ -f "$config_filepath" ]; then
     source "$config_filepath"
