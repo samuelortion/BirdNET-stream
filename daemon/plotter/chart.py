@@ -11,7 +11,7 @@ CONFIG = {
     "readings": 10,
     "palette": "Greens",
     "db": "./var/db.sqlite",
-    "date": "2022-08-14"
+    "date": datetime.now().strftime("%Y-%m-%d")
 }
 
 db = sqlite3.connect(CONFIG['db'])
@@ -27,7 +27,10 @@ df['date'] = df['date'].astype(str)
 df_on_date = df[df['date'] == CONFIG['date']]
  
 top_on_date = (df_on_date['common_name'].value_counts()[:CONFIG['readings']])
-
+if top_on_date.empty:
+    print("No observations on {}".format(CONFIG['date']))
+    exit()
+    
 df_top_on_date = df_on_date[df_on_date['common_name'].isin(top_on_date.index)]
 
 # Create a figure with 2 subplots
@@ -37,7 +40,7 @@ plt.subplots_adjust(left=None, bottom=None, right=None,
                     top=None, wspace=0, hspace=0)
 
 # Get species frequencies
-frequencies_order = pd.value_counts(df['common_name']).iloc[:CONFIG['readings']].index
+frequencies_order = pd.value_counts(df_top_on_date['common_name']).iloc[:CONFIG['readings']].index
 # Get min max confidences
 confidence_minmax = df_top_on_date.groupby('common_name')['confidence'].max()
 confidence_minmax = confidence_minmax.reindex(frequencies_order)
@@ -84,8 +87,8 @@ for _, spine in plot.spines.items():
 plot.set(ylabel=None)
 plot.set(xlabel="Hour of day")
 fig.subplots_adjust(top=0.9)
-plt.suptitle(f"Top {CONFIG['readings']} species (Updated on {datetime.now().strftime('%Y/%m-%d %H:%M')})")
-
+plt.suptitle(f"Top {CONFIG['readings']} species on {CONFIG['date']}", fontsize=14)
+plt.title(f"(Updated on {datetime.now().strftime('%Y/%m-%d %H:%M')})")
 plt.savefig(f"./var/charts/chart_{CONFIG['date']}.png", dpi=300)
 plt.close()
 
