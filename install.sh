@@ -165,15 +165,16 @@ setup_http_server() {
     sudo ln -s /etc/nginx/sites-available/birdnet-stream.conf /etc/nginx/sites-enabled/birdnet-stream.conf
     debug "Info: Please edit /etc/nginx/sites-available/birdnet-stream.conf to set the correct server name and paths"
     debug "Setup nginx variables the best way possible"
+    sudo sed -i "s|<SYMFONY_PUBLIC>|$WORKDIR/www/public/|g" /etc/nginx/sites-available/birdnet-stream.conf
     sudo sed -i "s|<RECORDS_FOLDER>|$CHUNK_FOLDER/out|g" /etc/nginx/sites-available/birdnet-stream.conf
     sudo sed -i "s|<CHARTS_FOLDER>|$WORKDIR/var/charts|g" /etc/nginx/sites-available/birdnet-stream.conf
     debug "Generate self signed certificate"
     CERTS_LOCATION="/etc/nginx/certs/birdnet"
     sudo mkdir -p "$CERTS_LOCATION"
     cd $CERTS_LOCATION
-    openssl req -x509 -newkey rsa:4096 -keyout privkey.pem -out fullchain.pem -sha256 -days 365 -nodes --subj '/CN=birdnet.lan'
-    sudo sed -i "s|<CERTIFICATE>|$CERTS_LOCATION/birdnet/fullchain.pem|g" /etc/nginx/sites-available/birdnet-stream.conf
-    sudo sed -i "s|<PRIVATE_KEY>|$CERTS_LOCATION/birdnet/privkey.pem|g" /etc/nginx/sites-available/birdnet-stream.conf
+    sudo openssl req -x509 -newkey rsa:4096 -keyout privkey.pem -out fullchain.pem -sha256 -days 365 -nodes --subj '/CN=birdnet.lan'
+    sudo sed -i "s|<CERTIFICATE>|$CERTS_LOCATION/fullchain.pem|g" /etc/nginx/sites-available/birdnet-stream.conf
+    sudo sed -i "s|<PRIVATE_KEY>|$CERTS_LOCATION/privkey.pem|g" /etc/nginx/sites-available/birdnet-stream.conf
     sudo systemctl enable --now nginx
     sudo systemctl restart nginx
     cd -
@@ -205,16 +206,17 @@ install_config() {
 
 update_permissions() {
     debug "Updating permissions (may not work properly)"
-    sudo chown -R "$USER":"birdnet" "$WORKDIR"
-    sudo chown -R "$USER":"birdnet" "$CHUNK_FOLDER"
+    sudo chown -R $USER:birdnet "$WORKDIR"
+    sudo chown -R $USER:birdnet "$CHUNK_FOLDER"
     sudo chmod -R 755 "$CHUNK_FOLDER"
 }
 
 main() {
     install_requirements "$REQUIREMENTS"
-    # install_birdnetstream
-    # install_birdnetstream_services
+    install_birdnetstream
+    install_birdnetstream_services
     install_web_interface
+    setup_http_server
     install_config
     update_permissions
     debug "Installation done"

@@ -6,7 +6,6 @@
         "core-js": "^3.23.0",
         "git-revision-webpack-plugin": "^5.0.0",
         "regenerator-runtime": "^0.13.9",
-        "webpack": "^5.74.0",
         "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
