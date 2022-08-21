@@ -33,7 +33,7 @@ BRANCH=dev ./install.sh
 
 ```bash
 sudo apt-get update
-sudo apt-get install python3-dev python3-pip
+sudo apt-get install python3-dev python3-pip python3-venv
 sudo pip3 install --upgrade pip
 ```
 
@@ -272,3 +272,28 @@ sudo crontab -e
 ```
 
 (This updates the certicates every first day of the month, feel free to adapt to your needs.)
+
+## Setup ttyd to stream audio to webapp
+
+Change to a dedicated folder, build and install ttyd:
+
+```bash
+cd /opt
+sudo wget wget https://github.com/tsl0922/ttyd/releases/download/1.7.1/ttyd.x86_64 # Change to your architecture and get last version
+sudo mv ttyd.x86_64 ttyd
+sudo chmod +x ttyd
+```
+
+Set up birdnet_ttyd systemd service to start as a daemon:
+
+```bash
+# Copy service template
+sudo cp ./daemon/systemd/templates/birdnet_ttyd.service /etc/systemd/system/birdnet_ttyd.service
+# Edit template and adapt placeholders
+sudo vim /etc/systemd/system/birdnet_ttyd.service
+# Enable and start ttyd service
+sudo systemctl daemon-reload
+sudo systemctl enable --now birdnet_ttyd.service
+```
+
+Then go to [https://birdnet.lan/ttyd](https://birdnet.lan/ttyd) and start streaming logs.
