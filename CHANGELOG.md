@@ -1,5 +1,7 @@
 # Changelog
 
+## v0.0.1-alpha
+
 ## v0.0.1-rc
 
 - Integrate BirdNET-Analyzer as submodule

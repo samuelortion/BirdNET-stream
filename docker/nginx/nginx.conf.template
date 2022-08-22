@@ -27,17 +27,17 @@ server {
 	index index.php;
 
 	location / {
-    		try_files $uri $uri/ /index.php$is_args$args;
+    	try_files $uri $uri/ /index.php$is_args$args;
     }
 
 	location ^~ /media/records {
 		autoindex on;
-		alias <RECORDS_FOLDER>;
+		alias <RECORDS_DIR>;
 	}
 	
 	location ^~ /media/charts {
 		autoindex on;
-		alias <CHARTS_FOLDER>;
+		alias <CHARTS_DIR>;
 	}
 
     location ~ \.php$ {

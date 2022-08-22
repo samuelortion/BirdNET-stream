@@ -166,8 +166,8 @@ setup_http_server() {
     debug "Info: Please edit /etc/nginx/sites-available/birdnet-stream.conf to set the correct server name and paths"
     debug "Setup nginx variables the best way possible"
     sudo sed -i "s|<SYMFONY_PUBLIC>|$WORKDIR/www/public/|g" /etc/nginx/sites-available/birdnet-stream.conf
-    sudo sed -i "s|<RECORDS_FOLDER>|$CHUNK_FOLDER/out|g" /etc/nginx/sites-available/birdnet-stream.conf
-    sudo sed -i "s|<CHARTS_FOLDER>|$WORKDIR/var/charts|g" /etc/nginx/sites-available/birdnet-stream.conf
+    sudo sed -i "s|<RECORDS_DIR>|$CHUNK_FOLDER/out|g" /etc/nginx/sites-available/birdnet-stream.conf
+    sudo sed -i "s|<CHARTS_DIR>|$WORKDIR/var/charts|g" /etc/nginx/sites-available/birdnet-stream.conf
     debug "Generate self signed certificate"
     CERTS_LOCATION="/etc/nginx/certs/birdnet"
     sudo mkdir -p "$CERTS_LOCATION"
