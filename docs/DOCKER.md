@@ -31,7 +31,12 @@ git clone -b main https://github.com/UncleSamulus/BirdNET-stream.git .
 Then, run docker-compose:
 
 ```bash
-docker-compose up
+# Build image (first time only)
+docker compose up --build
+# Run
+docker compose up -d
+# Stop
+docker compose down
 ```
 
 ## Building and running each of the containers 

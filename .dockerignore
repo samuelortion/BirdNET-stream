@@ -5,3 +5,6 @@ var
 media
 daemon/systemd
 analyzer
+vendor
+node_modules
+build

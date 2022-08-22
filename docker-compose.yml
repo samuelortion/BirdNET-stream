@@ -10,67 +10,101 @@ services:
   #   environment:
   #     - CHUNK_FOLDER=${CHUNK_FOLDER:-/media/birdnet/records}
   #   volumes:
-  #     - ./var/:/media/birdnet/records
+  #     - ${RECORDS_FOLDER:-/media/birdnet/records}:${RECORS_FOLDER:-/media/birdnet/records}
   #   # Allow container to access to the hosts microphone
   #   devices:
-  #     - /dev/snd
-
+  #     - /dev/snd:/dev/snd
   # analyzer:
   #   container_name: birdnet_analyzer
   #   build:
   #     context: ./analyzer/
   #     dockerfile: ./Dockerfile
 
+  db:
+    container_name: birdnet_database
+    image: mariadb:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - '3306:3306'
+    networks:
+      birdnet_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-secret}'
+      MYSQL_DATABASE: ${DATABASE:-birdnet}
+      MYSQL_USER: ${DATABASE_USER:-birdnet}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD:-secret}
+    volumes:
+      - ./docker/database/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
 
-  # db:
-  #   container_name: birdnet_database
-  #   image: mariadb:latest
-  #   command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-  #   ports:
-  #     - '3307:3306'
-  #   networks:
-  #     - birdnet_network
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}'
-  #     MYSQL_DATABASE: ${DATABASE:-birdnet}
-  #     MYSQL_USER: ${DATABASE_USER:-birdnet}
-  #     MYSQL_PASSWORD: ${DATABASE_PASSWORD:-secret}
-  #   volumes:
-  #     - ./docker/database/init:/docker-entrypoint-initdb.d
-  #   restart: unless-stopped
+  php-fpm:
+    container_name: birdnet_php-fpm
+    image: php:${PHP_VERSION:-8.1}-fpm
+    ports:
+      - ${PHP_FPM_PORT:-9000}:9000
+    networks:
+      birdnet_network:
+    restart: unless-stopped
+    volumes:
+      - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
 
   symfony:
     container_name: birdnet_symfony
-    hostname: birdnet.symfony
+    networks:
+      birdnet_network:
     build:
       context: .
       dockerfile: ./docker/symfony/Dockerfile
     environment:
+      - DATABASE_DEFAULT_URL=${DATABASE_DEFAULT_URL:-mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-db}:3306/birdnet_default}
+      - DATABASE_OBSERVATION_URL=${DATABASE_OBSERVATION_URL:-mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-db}:3306/birdnet_observation}
+      - RECORDS_FOLDER=${RECORDS_FOLDER:-/media/birdnet/records}
     restart: unless-stopped
     volumes:
-    networks:
-      - birdnet_network
+      - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
+      - birdnet_recordings:${RECORDS_FOLDER:-/media/birdnet/records}
     depends_on:
       - db
-  
+      
   nginx:
     container_name: birdnet_nginx
-    hostname: birdnet.nginx
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
+      args:
+        - SERVER_NAME=${SERVER_NAME:-birnet.local}
+        - SYMFONY_PUBLIC=${SYMFONY_PUBLIC:-/opt/birdnet/www/public}
+        - CHARTS_FOLDER=${CHARTS_FOLDER:-/media/birdnet/charts}
+        - RECORDS_FOLDER=${RECORDS_FOLDER:-/media/birdnet/records}
+        - PHP_FPM_HOST=${PHP_FPM_HOST:-php-fpm}
+        - PHP_FPM_PORT=${PHP_FPM_PORT:-9000}
     ports:
-     - '81:80'
-     - '444:443'
-    environment:
-      - PHP_FPM_PORT=${PHP_FPM_PORT:-9001}
-      - PHP_FPM_HOST=${PHP_FPM_HOST:-birdnet.php-fpm}
+      - '80:80'
+      - '443:443'
+    volumes:
+      - birdnet_app:${RECORDS_FOLDER-/opt/birdnet}
+      - birdnet_recordings:${RECORDS_FOLDER-/media/data/records}
     networks:
-      - birdnet_network
+      birdnet_network:
+        ipv4_address: ${IP_ADDRESS:-172.25.0.101}
+        aliases:
+          - ${SERVER_NAME:-birdnet.local}
     restart: unless-stopped
+    depends_on:
+      - symfony
+      - php-fpm
 
 networks:
   birdnet_network:
+    ipam:
+      config:
+        - subnet: ${IP_SUBNET:-172.25.0.0/24}
 
 volumes:
-  birdnet:
+  birdnet_app:
+
+  birdnet_recordings:
+    driver_opts:
+      type: none
+      device: ${RECORDS_FOLDER:-/media/data/records}
+      o: bind
