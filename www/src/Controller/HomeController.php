@@ -77,7 +77,7 @@ class HomeController extends AbstractController
     
         $files = glob($this->getParameter('kernel.project_dir') . '/../var/charts/*.png');
         usort($files, function($a, $b) {
-            return filemtime($b) - filemtime($a);
+            return filemtime($a) - filemtime($b);
         });
         $last_chart = basename(array_pop($files));
         return $last_chart;

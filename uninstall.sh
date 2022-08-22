@@ -27,6 +27,7 @@ uninstall_birdnet_services() {
         sudo systemctl stop "$service"
         sudo systemctl disable "$service"
         sudo rm -f "/etc/systemd/system/$service"
+        sudo systemctl daemon-reload
     done
     debug "Done removing systemd services"
 }
@@ -36,6 +37,4 @@ uninstall_webapp() {
     debug "Removing nginx server configuration"
     sudo unlink /etc/nginx/sites-enabled/birdnet-stream.conf
     sudo systemctl restart nginx
-    debug "Removing webapp directory"
-    sudo rm -rf $WORKDIR
 }
