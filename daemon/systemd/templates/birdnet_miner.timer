@@ -6,4 +6,4 @@ OnCalendar=*:0/15
 Unit=birdnet_miner.service
 
 [Install]
-WantedBy=basic.target
+WantedBy=timers.target

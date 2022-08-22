@@ -5,7 +5,7 @@ set -e
 
 DEBUG=${DEBUG:-0}
 
-REQUIREMENTS="git wget ffmpeg python3 python3-pip python3-dev python3-venv g{,un}zip sqlite3"
+REQUIREMENTS="git wget ffmpeg python3 python3-pip python3-dev python3-venv gzip sqlite3"
 REPOSITORY=${REPOSITORY:-https://github.com/UncleSamulus/BirdNET-stream.git}
 BRANCH=${BRANCH:-main}
 WORKDIR="$(pwd)/BirdNET-stream"
@@ -48,7 +48,7 @@ install_birdnetstream() {
         # Clone BirdNET-stream
         cd "$WORKDIR"
         debug "Cloning BirdNET-stream from $REPOSITORY"
-        git clone -b "$BRANCH"--recurse-submodules "$REPOSITORY" .
+        git clone -b "$BRANCH" --recurse-submodules "$REPOSITORY" .
         debug "Creating python3 virtual environment $PYTHON_VENV"
         python3 -m venv $PYTHON_VENV
         debug "Activating $PYTHON_VENV"
@@ -219,6 +219,8 @@ main() {
     install_web_interface
     setup_http_server
     install_config
+    debug "Run loginctl enable-linger for $USER"
+    loginctl enable-linger
     update_permissions
     debug "Installation done"
 }

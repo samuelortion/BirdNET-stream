@@ -79,16 +79,22 @@ sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service b
 #### Check if services are working
 
 ```bash
-# Sercices status
-sudo systemctl status birdnet_recording.service birdnet_analyzis.service
-# Timers status
-sudo systemctl status birdnet_miner.timer
+# Sercices and timers status
+sudo systemctl status birdnet_\*
 ```
 
 ```bash
 # BirdNET-stream logs
-sudo journalctl -feu {birdnet_recording,birdnet_analyzis}.service
+sudo journalctl -feu birdnet_\*
 ```
+
+#### Enable `loginctl-linger` for the user that runs the servuces
+
+Running:
+```bash
+loginctl enable-linger
+```
+This allows to use `/run/user/1000/pulse` to record audio using PulseAudio in birdnet_recording.sh.
 
 ## Setup BirdNET-stream symfony webapp
 
