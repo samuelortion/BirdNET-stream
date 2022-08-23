@@ -28,6 +28,12 @@ cd ~/Documents/BirdNET-stream
 git clone -b main https://github.com/UncleSamulus/BirdNET-stream.git .
 ```
 
+Then, create your dotenv file and populate it with your own configuration (for instance, generate random passwords and add them to .env credentials):
+
+```bash
+cp .env.example .env
+```
+
 Then, run docker-compose:
 
 ```bash
