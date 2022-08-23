@@ -1,9 +1,10 @@
 var/
 /.venv/
 
-.env
-.env.local
+/.env
+/.env.local
 !.env.local.example
+!.env.example
 
 species_list.txt
 
