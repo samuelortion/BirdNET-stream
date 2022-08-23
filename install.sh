@@ -48,7 +48,7 @@ install_birdnetstream() {
         # Clone BirdNET-stream
         cd "$WORKDIR"
         debug "Cloning BirdNET-stream from $REPOSITORY"
-        git clone -b "$BRANCH"--recurse-submodules "$REPOSITORY" .
+        git clone -b "$BRANCH" --recurse-submodules "$REPOSITORY" .
         debug "Creating python3 virtual environment $PYTHON_VENV"
         python3 -m venv $PYTHON_VENV
         debug "Activating $PYTHON_VENV"
