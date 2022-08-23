@@ -1,5 +1,4 @@
 - Fix service manager
-- Add docker support
 - Species i18n
 - File purge policy
 - Add and test RTSP support

@@ -1,6 +1,0 @@
-CREATE DATABASE IF NOT EXISTS `birdnet_observations`;
-CREATE DATABASE IF NOT EXISTS `birdnet_default`;
-
-CREATE USER '<MYSQL_USER>'@'localhost' IDENTIFIED BY '<MYSQL_PASSWORD>';
-GRANT ALL PRIVILEGES ON birdnet_observations.* TO '<MYSQL_USER>'@'%';
-GRANT ALL PRIVILEGES ON birdnet_default.* TO '<MYSQL_USER>'@'%';

@@ -25,12 +25,11 @@ services:
     image: mariadb:latest
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - '3306:3306'
+      - ${DATABASE_PORT:-3306}:3306
     networks:
       birdnet_network:
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-secret}'
-      MYSQL_DATABASE: ${DATABASE:-birdnet}
       MYSQL_USER: ${DATABASE_USER:-birdnet}
       MYSQL_PASSWORD: ${DATABASE_PASSWORD:-secret}
     volumes:

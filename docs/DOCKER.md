@@ -20,7 +20,7 @@ The splitted approach uses docker-compose and a docker container for each servic
 
 This is the recommended approach to run BirdNET-stream while using docker.
 
-Thirst of of all, you need to clone the repository.
+First of of all, you need to clone the repository.
 
 ```bash
 mkdir ~/Documents/BirdNET-stream
@@ -32,34 +32,14 @@ Then, run docker-compose:
 
 ```bash
 # Build image (first time only)
-docker compose up --build
+docker compose build
 # Run
-docker compose up -d
+docker compose up # add `-d`, to run in background
 # Stop
 docker compose down
 ```
 
-## Building and running each of the containers 
-
-### birdnet_recording container
-
-Building:
+For a one liner:
 ```bash
-docker build -f ./docker/recording/Dockerfile -t birdnet_recording:latest .
-```
-Running
-```bash
-docker run --rm --device /dev/snd birdnet_recording:latest
-```
-
-### birdnet_www container
-
-Building:
-```bash
-docker build -f ./docker/www/Dockerfile -t birdnet_www:latest .
-```
-
-Running
-```bash
-docker run --rm birdnet_www:latest
+docker compose up --build
 ```
