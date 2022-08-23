@@ -27,7 +27,7 @@ services:
     ports:
       - ${DATABASE_PORT:-3306}:3306
     networks:
-      birdnet_network:
+      - birdnet_network
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-secret}'
       MYSQL_USER: ${DATABASE_USER:-birdnet}
@@ -38,11 +38,16 @@ services:
 
   php-fpm:
     container_name: birdnet_php-fpm
-    image: php:${PHP_VERSION:-8.1}-fpm
+    build:
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
     ports:
-      - '9000:9000'
+      - '${PHP_FPM_PORT:-9000}:9000'
     networks:
-      birdnet_network:
+      - birdnet_network
+    environment:
+      - APP_ENV=${APP_ENV:-prod}
+      - APP_DEBUG=${APP_DEBUG:-true}
     restart: unless-stopped
     volumes:
       - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
@@ -50,21 +55,22 @@ services:
   symfony:
     container_name: birdnet_symfony
     networks:
-      birdnet_network:
+      - birdnet_network
     build:
       context: .
       dockerfile: ./docker/symfony/Dockerfile
-    environment:
-      - DATABASE_DEFAULT_URL=${DATABASE_DEFAULT_URL:-mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-db}:3306/birdnet_default}
-      - DATABASE_OBSERVATION_URL=${DATABASE_OBSERVATION_URL:-mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-db}:3306/birdnet_observation}
-      - RECORDS_DIR=/media/birdnet/records
+      args:
+        - DATABASE_DEFAULT_URL=mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-birdnet_database}:${DATABASE_PORT:-3306}/birdnet_default
+        - DATABASE_OBSERVATIONS_URL=mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-birdnet_database}:${DATABASE_PORT:-3306}/birdnet_observation
+        - RECORDS_DIR=/media/birdnet/records
+        - CHARTS_DIR=/media/birdnet/charts
     restart: on-failure
     volumes:
       - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
       - birdnet_records:${RECORDS_DIR:-/media/birdnet/records}
     depends_on:
       - db
-      
+
   nginx:
     container_name: birdnet_nginx
     hostname: ${SERVER_NAME:-birdnet.local}
@@ -76,11 +82,11 @@ services:
         - SYMFONY_PUBLIC=/opt/birdnet/www/public
         - CHARTS_DIR=/media/birdnet/charts
         - RECORDS_DIR=/media/birdnet/records
-        - PHP_FPM_HOST=php-fpm
+        - PHP_FPM_HOST=birdnet_php-fpm
         - PHP_FPM_PORT=9000
     ports:
-      - '80:80'
-      - '443:443'
+      - '81:80'
+      - '444:443'
     volumes:
       - birdnet_app:/opt/birdnet
       - birdnet_records:/media/data/records
@@ -96,6 +102,7 @@ services:
 
 networks:
   birdnet_network:
+    driver: bridge
     ipam:
       config:
         - subnet: ${IP_SUBNET:-172.25.0.0/24}

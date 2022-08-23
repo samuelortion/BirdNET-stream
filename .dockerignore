@@ -1,10 +1,7 @@
-var
-.venv
-.github
-.ideas
-media
-daemon/systemd
-analyzer
-vendor
-node_modules
-build
+/var
+/.venv
+/.github
+/.ideas
+/media
+/daemon/systemd
+/analyzer
