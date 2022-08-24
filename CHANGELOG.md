@@ -1,7 +1,9 @@
 # Changelog
-
 ## v0.0.1-alpha
 
+- Add docker compose port
+- Improve install script
+- Add ttyd for systemd logging
 ## v0.0.1-rc
 
 - Integrate BirdNET-Analyzer as submodule
