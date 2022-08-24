@@ -100,9 +100,9 @@ def chart(date):
 
     plot.set(ylabel=None)
     plot.set(xlabel="Hour of day")
-    plt.suptitle(f"Top {CONFIG['readings']} species on {CONFIG['date']}", fontsize=14)
+    plt.suptitle(f"Top {CONFIG['readings']} species on {date}", fontsize=14)
     plt.text(15, 11, f"(Updated on {datetime.now().strftime('%Y/%m-%d %H:%M')})")
-    plt.savefig(f"./var/charts/chart_{CONFIG['date']}.png", dpi=300)
+    plt.savefig(f"./var/charts/chart_{date}.png", dpi=300)
     print(f"Plot for {date} saved.")
     plt.close()
 
