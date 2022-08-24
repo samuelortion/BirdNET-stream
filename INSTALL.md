@@ -129,7 +129,7 @@ sudo mv /composer.phar /usr/local/bin/composer
 
 ```bash
 cd www
-composer install
+composer install --no-dev --prefer-dist --optimize-autoloader
 ```
 
 ### Install nodejs and npm
@@ -147,7 +147,7 @@ nvm use 16
 ```
 
 ```bash
-sudo dnf install npm
+sudo apt-get install npm
 ```
 
 ```bash

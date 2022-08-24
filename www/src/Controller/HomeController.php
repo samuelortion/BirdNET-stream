@@ -25,11 +25,15 @@ class HomeController extends AbstractController
      * @Route("", name="home")
      * @Route("/{_locale<%app.supported_locales%>}/", name="home_i18n")
      */
-    public function index()
+    public function index(Request $request)
     {
+        $date = $request->get("on");
+        if ($date == null) {
+            $date = date("Y-m-d");
+        }
         return $this->render('index.html.twig', [
-            "stats" => $this->get_stats(),
-            "charts" => $this->last_chart_generated(),
+            "stats" => $this->get_stats($date),
+            "charts" => $this->last_chart_generated($date),
         ]);
     }
 
@@ -42,11 +46,12 @@ class HomeController extends AbstractController
         return $this->render('about/index.html.twig', []);
     }
 
-    private function get_stats()
+    private function get_stats($date)
     {
         $stats = array();
         $stats["most-recorded-species"] = $this->get_most_recorded_species();
         $stats["last-detected-species"] = $this->get_last_recorded_species();
+        $stats["number-of-species-detected"] = $this->get_number_of_species_detected($date);
         return $stats;
     }
 
@@ -84,6 +89,27 @@ class HomeController extends AbstractController
             $this->logger->error($e->getMessage());
         }
         return $species;
+    }
+
+    private function get_number_of_species_detected($date)
+    {
+        $count = 0;
+        $sql = "SELECT COUNT(`taxon_id`) AS contact_count
+                FROM `observation`
+                WHERE STRFTIME('%Y-%m-%d', `date`) = :date
+                GROUP BY `taxon_id`";
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(":date", $date);
+            $result = $stmt->executeQuery();
+            $output = $result->fetchAllAssociative();
+            if ($output != null) {
+                $count = $output[0]["contact_count"];
+            }
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $count;
     }
 
     private function last_chart_generated()

@@ -38,3 +38,12 @@ uninstall_webapp() {
     sudo unlink /etc/nginx/sites-enabled/birdnet-stream.conf
     sudo systemctl restart nginx
 }
+
+main() {
+    echo "WARNING: This will remove all BirdNET-stream related files and services. \
+    Note that it may forget some special configuration."
+    uninstall_webapp
+    uninstall_birdnet_services
+}
+
+main

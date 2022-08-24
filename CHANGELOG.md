@@ -3,8 +3,9 @@
 
 - Add docker compose port
 - Improve install script
+- Add base uninstall script (need deeper work)
 - Add ttyd for systemd logging
-## v0.0.1-rc
+## v0.0.1-rc (2022-08-18)
 
 - Integrate BirdNET-Analyzer as submodule
 - Add birdnet_recording service

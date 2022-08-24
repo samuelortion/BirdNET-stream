@@ -3,9 +3,7 @@ set -e
 
 DEBUG=${DEBUG:-1}
 debug() {
-    if [ $DEBUG -eq 1 ]; then
-        echo "$1"
-    fi
+    [[ $DEBUG -eq 1 ]] && echo "$@"
 }
 
 config_filepath="./config/birdnet.conf"
@@ -64,7 +62,9 @@ check_prerequisites() {
 
 # Get array of audio chunks to be processed
 get_chunk_list() {
-    find "${CHUNK_FOLDER}/in" -type f -name '*.wav' -exec basename {} \; ! -size 0 | sort
+    chunk_list=($(ls ${CHUNK_FOLDER}/in))
+    echo "${chunk_list}"
+    # find "${CHUNK_FOLDER}/in" -type f -name '*.wav' -exec basename {} \; ! -size 0 | sort
 }
 
 # Perform audio chunk analysis on one chunk
@@ -75,13 +75,22 @@ analyze_chunk() {
     mkdir -p "$output_dir"
     date=$(echo $chunk_name | cut -d'_' -f2)
     week=$(./daemon/weekof.sh $date)
-    $PYTHON_EXECUTABLE ./analyzer/analyze.py --i $chunk_path --o "$output_dir/model.out.csv" --lat $LATITUDE --lon $LONGITUDE --week $week --min_conf $CONFIDENCE --threads 4 --rtype csv
+    if [[ ! -z "${THREADS}" ]]; then
+        threads="--threads ${THREADS}"
+    else 
+        threads=""
+    fi
+    $PYTHON_EXECUTABLE ./analyzer/analyze.py --i $chunk_path --o "$output_dir/model.out.csv" --lat $LATITUDE --lon $LONGITUDE --week $week --min_conf $CONFIDENCE $threads --rtype csv
     debug "Model output written to $output_dir/model.out.csv"
+    bash ./daemon/birdnet_output_to_sql.sh "$output_dir/model.out.csv"
+    debug "Dumped to SQL database"
 }
 
 # Perform audio chunk analysis on all recorded chunks
 analyze_chunks() {
-    for chunk_name in $(get_chunk_list); do
+    local chunks
+    chunks="${1}"
+    for chunk_name in "${chunks}"; do
         if [[ -f "${CHUNK_FOLDER}/out/$chunk_name.d/model.out.csv" ]]; then
             debug "Skipping $chunk_name, as it has already been analyzed"
         else
@@ -98,4 +107,4 @@ check_prerequisites
 chunks=$(get_chunk_list)
 
 # Analyze all chunks in working directory
-analyze_chunks $chunks
+analyze_chunks "$chunks"

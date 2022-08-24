@@ -34,10 +34,13 @@ Then, create your dotenv file and populate it with your own configuration (for i
 cp .env.example .env
 ```
 
-Then, run docker-compose:
+You may need to adapt the listening ports of the services or other configuration parameters. 
+In general all variables stated with ${VARIABLE:-default} inside [../docker-compose.yml](../docker-compose.yml) can be override in the .env file using `VARIABLE=value`.
+
+Once that is done, you can build and start docker services:
 
 ```bash
-# Build image (first time only)
+# Build images (first time only)
 docker compose build
 # Run
 docker compose up # add `-d`, to run in background
