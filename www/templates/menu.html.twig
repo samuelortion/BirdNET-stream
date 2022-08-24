@@ -41,10 +41,9 @@
       <li class="dropdown">
         <span class="dropdown-toggle">{{ "Tools"|trans }}</span>
         <ul class="dropdown-content">
-          {% include 'utils/nav-item.html.twig' with {
-            route: 'logs',
-            text: 'View Logs'|trans
-          } %}
+          <li><a href="/ttyd">
+            {{ "Logs"|trans }}
+          </a></li>
           {% include 'utils/nav-item.html.twig' with {
             route: 'services_status',
             text: 'Status'|trans
