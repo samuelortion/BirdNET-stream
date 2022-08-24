@@ -19,6 +19,4 @@ PYTHON_VENV="./.venv/birdnet-stream"
 WORKDIR="/home/$USER/BirdNET-stream"
 # Database location
 DATABASE="./var/db.sqlite"
-
-DAEMON_USER="birdnet"
-DAEMON_PASSWORD="secret"
+# DATABASE="mysql://birdnet:secret@localhost:3306/birdnet_observations" # uncomment and change 'secret' if you want to use a mariadb (mysql) database instea of sqlite
