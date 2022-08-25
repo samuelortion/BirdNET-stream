@@ -42,7 +42,7 @@ On debian based systems (tested on Debian Bullseye), the following command shoul
 # Change to your installation directory here, /home/$USER/Documents/BirdNET-stream for instance, or /opt/birdnet-stream, or whatever
 cd /path/to/installation/directory
 # Download installation script 
-curl -0 https://raw.githubusercontent.com/UncleSamulus/BirdNET-stream/main/install.sh
+curl -O https://raw.githubusercontent.com/UncleSamulus/BirdNET-stream/main/install.sh
 # Run installation script:
 chmod +x ./install.sh
 ./install.sh

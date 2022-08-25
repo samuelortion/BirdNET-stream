@@ -11,15 +11,9 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
     --no-install-recommends \
-    libasound2 \
-    alsa-utils \
-    libsndfile1-dev \
-    && apt-get install -y ffmpeg \
+    ffmpeg \
     && apt-get clean
 
-RUN mkdir -p /opt/birdnet/
-WORKDIR /opt/birdnet/
-COPY config ./config
-COPY daemon/birdnet_recording.sh /usr/local/bin/birdnet_recording.sh
+WORKDIR /opt/birdnet
 
-ENTRYPOINT ["/usr/local/bin/birdnet_recording.sh"]
+ENTRYPOINT ["./daemon/birdnet_recording.sh"]

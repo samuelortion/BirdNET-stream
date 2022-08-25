@@ -1,19 +1,19 @@
 version: '3.9'
 
 services:
-  # recording: 
-  #   container_name: birdnet_recording
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/recording/Dockerfile
-  #   restart: unless-stopped
-  #   environment:
-  #     - CHUNK_FOLDER=${CHUNK_FOLDER:-/media/birdnet/records}
-  #   volumes:
-  #     - ${RECORDS_DIR:-/media/birdnet/records}:${RECORS_FOLDER:-/media/birdnet/records}
-  #   # Allow container to access to the hosts microphone
-  #   devices:
-  #     - /dev/snd:/dev/snd
+  recording: 
+    container_name: birdnet_recording
+    build:
+      context: .
+      dockerfile: ./docker/recording/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
+      - birdnet_records:${RECORDS_DIR:-/media/birdnet/records}
+    # Allow container to access to the hosts microphone
+    devices:
+      - /dev/snd:/dev/snd
+      
   # analyzer:
   #   container_name: birdnet_analyzer
   #   build:
