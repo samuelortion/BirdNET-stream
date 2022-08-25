@@ -5,7 +5,7 @@ set -e
 
 DEBUG=${DEBUG:-0}
 
-REQUIREMENTS="git wget ffmpeg python3 python3-pip python3-dev python3-venv g{,un}zip sqlite3"
+REQUIREMENTS="git wget ffmpeg python3 python3-pip python3-dev python3-venv zip unzip sqlite3"
 REPOSITORY=${REPOSITORY:-https://github.com/UncleSamulus/BirdNET-stream.git}
 BRANCH=${BRANCH:-main}
 WORKDIR="$(pwd)/BirdNET-stream"
@@ -48,7 +48,7 @@ install_birdnetstream() {
         # Clone BirdNET-stream
         cd "$WORKDIR"
         debug "Cloning BirdNET-stream from $REPOSITORY"
-        git clone -b "$BRANCH"--recurse-submodules "$REPOSITORY" .
+        git clone -b "$BRANCH" --recurse-submodules "$REPOSITORY" .
         debug "Creating python3 virtual environment $PYTHON_VENV"
         python3 -m venv $PYTHON_VENV
         debug "Activating $PYTHON_VENV"
@@ -67,7 +67,7 @@ install_birdnetstream_services() {
     DIR="$WORKDIR"
     cd "$WORKDIR"
     debug "Setting up BirdNET stream systemd services"
-    services="birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer birdnet_miner.service birdnet_plotter.service birdnet_plotter.timer"
+    services="birdnet_recording.service birdnet_analyzis.service birdnet_plotter.service birdnet_plotter.timer"
     read -r -a services_array <<<"$services"
     for service in ${services_array[@]}; do
         sudo cp "daemon/systemd/templates/$service" "/etc/systemd/system/"
@@ -78,7 +78,7 @@ install_birdnetstream_services() {
     done
     sudo sed -i "s|<VENV>|$WORKDIR/$PYTHON_VENV|g" "/etc/systemd/system/birdnet_plotter.service"
     sudo systemctl daemon-reload
-    enabled_services="birdnet_recording.service birdnet_analyzis.service birdnet_miner.timer birdnet_plotter.timer"
+    enabled_services="birdnet_recording.service birdnet_analyzis.service birdnet_plotter.timer"
     read -r -a services_array <<<"$services"
     for service in ${services_array[@]}; do
         debug "Enabling $service"
@@ -163,11 +163,11 @@ setup_http_server() {
     fi
     debug "Enable birdnet.lan domain"
     sudo ln -s /etc/nginx/sites-available/birdnet-stream.conf /etc/nginx/sites-enabled/birdnet-stream.conf
-    debug "Info: Please edit /etc/nginx/sites-available/birdnet-stream.conf to set the correct server name and paths"
+    debug "INFO: Please edit /etc/nginx/sites-available/birdnet-stream.conf to set the correct server name and paths"
     debug "Setup nginx variables the best way possible"
     sudo sed -i "s|<SYMFONY_PUBLIC>|$WORKDIR/www/public/|g" /etc/nginx/sites-available/birdnet-stream.conf
-    sudo sed -i "s|<RECORDS_FOLDER>|$CHUNK_FOLDER/out|g" /etc/nginx/sites-available/birdnet-stream.conf
-    sudo sed -i "s|<CHARTS_FOLDER>|$WORKDIR/var/charts|g" /etc/nginx/sites-available/birdnet-stream.conf
+    sudo sed -i "s|<RECORDS_DIR>|$CHUNK_FOLDER/out|g" /etc/nginx/sites-available/birdnet-stream.conf
+    sudo sed -i "s|<CHARTS_DIR>|$WORKDIR/var/charts|g" /etc/nginx/sites-available/birdnet-stream.conf
     debug "Generate self signed certificate"
     CERTS_LOCATION="/etc/nginx/certs/birdnet"
     sudo mkdir -p "$CERTS_LOCATION"
@@ -219,6 +219,8 @@ main() {
     install_web_interface
     setup_http_server
     install_config
+    debug "Run loginctl enable-linger for $USER"
+    loginctl enable-linger
     update_permissions
     debug "Installation done"
 }

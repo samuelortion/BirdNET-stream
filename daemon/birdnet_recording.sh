@@ -3,6 +3,7 @@
 DEBUG=${DEBUG:-1}
 
 export PULSE_RUNTIME_PATH="/run/user/$(id -u)/pulse/"
+FFMPEG_OPTIONS="-nostdin -hide_banner -loglevel error -nostats -vn -acodec pcm_s16le -ac 1 -ar 48000"
 
 debug() {
     if [ $DEBUG -eq 1 ]; then
@@ -27,20 +28,25 @@ record_loop() {
     done
 }
 
-FFMPEG_OPTIONS="-nostdin -hide_banner -loglevel error -nostats -vn -acodec pcm_s16le -ac 1 -ar 48000 "
 
 record_stream() {
     local STREAM=$1
     local DURATION=$2
     local debug "Recording from $STREAM for $DURATION seconds"
-    ffmpeg $FFMPEG_OPTIONS -f -i ${DEVICE} -t ${DURATION} file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+    ffmpeg $FFMPEG_OPTIONS -i ${STREAM} -t ${DURATION} file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
 record_device() {
     DEVICE=$1
     DURATION=$2
     debug "Recording from $DEVICE for $DURATION seconds"
-    ffmpeg $FFMPEG_OPTIONS -f pulse -i ${DEVICE} -t ${DURATION} -af "volume=$RECORDING_AMPLIFY" file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
+    local ffmpeg_input
+    if [[ "$AUDIO_USE_PULSE" = "true" ]]; then
+        ffmpeg_input="-f pulse -i ${DEVICE}"
+    else
+        ffmpeg_input="-f alsa -i ${DEVICE}"
+    fi
+    ffmpeg $FFMPEG_OPTIONS $ffmpeg_input -t ${DURATION} -af "volume=$RECORDING_AMPLIFY" file:${CHUNK_FOLDER}/in/birdnet_$(date "+%Y%m%d_%H%M%S").wav
 }
 
 config_filepath="./config/birdnet.conf"

@@ -33,7 +33,7 @@ BRANCH=dev ./install.sh
 
 ```bash
 sudo apt-get update
-sudo apt-get install python3-dev python3-pip
+sudo apt-get install python3-dev python3-pip python3-venv
 sudo pip3 install --upgrade pip
 ```
 
@@ -79,16 +79,22 @@ sudo systemctl enable --now birdnet_recording.service birdnet_analyzis.service b
 #### Check if services are working
 
 ```bash
-# Sercices status
-sudo systemctl status birdnet_recording.service birdnet_analyzis.service
-# Timers status
-sudo systemctl status birdnet_miner.timer
+# Sercices and timers status
+sudo systemctl status birdnet_\*
 ```
 
 ```bash
 # BirdNET-stream logs
-sudo journalctl -feu {birdnet_recording,birdnet_analyzis}.service
+sudo journalctl -feu birdnet_\*
 ```
+
+#### Enable `loginctl-linger` for the user that runs the servuces
+
+Running:
+```bash
+loginctl enable-linger
+```
+This allows to use `/run/user/1000/pulse` to record audio using PulseAudio in birdnet_recording.sh.
 
 ## Setup BirdNET-stream symfony webapp
 
@@ -123,7 +129,7 @@ sudo mv /composer.phar /usr/local/bin/composer
 
 ```bash
 cd www
-composer install
+composer install --no-dev --prefer-dist --optimize-autoloader
 ```
 
 ### Install nodejs and npm
@@ -141,7 +147,7 @@ nvm use 16
 ```
 
 ```bash
-sudo dnf install npm
+sudo apt-get install npm
 ```
 
 ```bash
@@ -272,3 +278,28 @@ sudo crontab -e
 ```
 
 (This updates the certicates every first day of the month, feel free to adapt to your needs.)
+
+## Setup ttyd to stream audio to webapp
+
+Change to a dedicated folder, build and install ttyd:
+
+```bash
+cd /opt
+sudo wget wget https://github.com/tsl0922/ttyd/releases/download/1.7.1/ttyd.x86_64 # Change to your architecture and get last version
+sudo mv ttyd.x86_64 ttyd
+sudo chmod +x ttyd
+```
+
+Set up birdnet_ttyd systemd service to start as a daemon:
+
+```bash
+# Copy service template
+sudo cp ./daemon/systemd/templates/birdnet_ttyd.service /etc/systemd/system/birdnet_ttyd.service
+# Edit template and adapt placeholders
+sudo vim /etc/systemd/system/birdnet_ttyd.service
+# Enable and start ttyd service
+sudo systemctl daemon-reload
+sudo systemctl enable --now birdnet_ttyd.service
+```
+
+Then go to [https://birdnet.lan/ttyd](https://birdnet.lan/ttyd) and start streaming logs.

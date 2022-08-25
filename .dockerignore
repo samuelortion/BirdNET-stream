@@ -1,4 +1,7 @@
-var
-.venv
-.github
-.ideas
+/var
+/.venv
+/.github
+/.ideas
+/media
+/daemon/systemd
+/analyzer

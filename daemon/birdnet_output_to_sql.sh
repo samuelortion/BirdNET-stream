@@ -1,15 +1,13 @@
 #! /usr/bin/env bash
-# Extract observations from a model output folder
+# Extract observations from a model output file into SQL database
 #
 
 DEBUG=${DEBUG:-1}
 set -e
 # set -x
-
+DEBUG=${DEBUG:-1}
 debug() {
-    if [ $DEBUG -eq 1 ]; then
-        echo "$1"
-    fi
+    [[ $DEBUG -eq 1 ]] && echo "$@"
 }
 
 # Load bash library to deal with BirdNET-stream database
@@ -18,16 +16,6 @@ source ./daemon/database/scripts/database.sh
 # Load config
 source ./config/birdnet.conf
 # Check config
-if [[ -z ${CHUNK_FOLDER} ]]; then
-    echo "CHUNK_FOLDER is not set"
-    exit 1
-else
-    if [[ ! -d ${CHUNK_FOLDER}/out ]]; then
-        echo "CHUNK_FOLDER does not exist: ${CHUNK_FOLDER}/out"
-        echo "Cannot extract observations."
-        exit 1
-    fi
-fi
 
 if [[ -z ${LATITUDE} ]]; then
     echo "LATITUDE is not set"
@@ -38,10 +26,6 @@ if [[ -z ${LONGITUDE} ]]; then
     echo "LONGITUDE is not set"
     exit 1
 fi
-
-model_outputs() {
-    ls ${CHUNK_FOLDER}/out/*/model.out.csv
-}
 
 source_wav() {
     model_output_path=$1
@@ -107,13 +91,6 @@ save_observations() {
     done
 }
 
-main() {
-    # # Remove all junk observations
-    # ./daemon/birdnet_clean.sh
-    # Get model outputs
-    for model_output in $(model_outputs); do
-        save_observations $model_output
-    done
-}
+model_output_path="$1"
 
-main
+save_observations $model_output_path

@@ -1,0 +1,14 @@
+[Unit]
+Description=BirdNET-stream logs
+After=syslog.target
+After=network.target
+
+[Service]
+User=<USER>
+Group=<GROUP>
+ExecStart=/opt/ttyd -p 7681 -c birdnet:secret  -t disableReconnect=true --readonly journalctl -feu birdnet_\*
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

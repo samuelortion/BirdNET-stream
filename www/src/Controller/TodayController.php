@@ -6,14 +6,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\AppBundle\ConnectionObservations;
+use Psr\Log\LoggerInterface;
 
 class TodayController extends AbstractController
-{    private ConnectionObservations $connection;
+{    
+    private ConnectionObservations $connection;
+    private LoggerInterface $logger;
 
-    public function __construct(ConnectionObservations $connection)
+    public function __construct(ConnectionObservations $connection, LoggerInterface $logger)
     {
         $this->connection = $connection;
+        $this->logger = $logger;
     }
+
 
     /**
      * @Route("/today", name="today")
@@ -88,28 +93,38 @@ class TodayController extends AbstractController
 
     private function recorded_species_by_date($date)
     {
+        $recorded_species = [];
         $sql = "SELECT `taxon`.`taxon_id`, `scientific_name`, `common_name`, COUNT(*) AS `contact_count`, MAX(`confidence`) AS max_confidence
                 FROM observation 
                 INNER JOIN taxon 
                 ON observation.taxon_id = taxon.taxon_id 
                 WHERE strftime('%Y-%m-%d', `observation`.`date`) = :date 
                 GROUP BY observation.taxon_id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':date', $date);
-        $result = $stmt->executeQuery();
-        return $result->fetchAllAssociative();
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(':date', $date);
+            $result = $stmt->executeQuery();
+            $recorded_species = $result->fetchAllAssociative();
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $recorded_species;
     }
 
     private function recorded_species_by_id_and_date($id, $date)
     {
         /* Get taxon even if there is no record this date */
         $sql = "SELECT * FROM `taxon` WHERE `taxon_id` = :id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $result = $stmt->executeQuery();
-        $taxon = $result->fetchAllAssociative()[0];
-        if (!$taxon) {
-            return [];
+        $taxon = [];
+        $stat = [];
+        $records = [];
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            $result = $stmt->executeQuery();
+            $taxon = $result->fetchAllAssociative()[0];
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
         }
         /* Get daily stats */
         $sql = "SELECT COUNT(*) AS `contact_count`, MAX(`confidence`) AS `max_confidence` 
@@ -118,33 +133,47 @@ class TodayController extends AbstractController
                 ON `taxon`.`taxon_id` = `observation`.`taxon_id` 
                 WHERE strftime('%Y-%m-%d', `observation`.`date`) = :date
                 AND `observation`.`taxon_id` = :id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':date', $date);
-        $result = $stmt->executeQuery();
-        $stat = $result->fetchAllAssociative();
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':date', $date);
+            $result = $stmt->executeQuery();
+            $stat = $result->fetchAllAssociative();
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
         $sql = "SELECT * FROM `observation` 
                 WHERE `taxon_id` = :id 
                 AND strftime('%Y-%m-%d', `observation`.`date`) = :date
                 ORDER BY `observation`.`date` ASC";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':date', $date);
-        $result = $stmt->executeQuery();
-        $records = $result->fetchAllAssociative();
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':date', $date);
+            $result = $stmt->executeQuery();
+            $records = $result->fetchAllAssociative();
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
         return array("taxon" => $taxon, "stat" => $stat, "records" => $records);
     }
 
     private function best_confidence_today($id, $date)
     {
+        $best_confidence = 0;
         $sql = "SELECT MAX(`confidence`) AS confidence 
                 FROM `observation` 
                 WHERE strftime('%Y-%m-%d', `observation`.`date`) = :date 
                 AND `taxon_id` = :id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':date', $date);
-        $result = $stmt->executeQuery();
-        return $result->fetchAllAssociative();
+        try {
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':date', $date);
+            $result = $stmt->executeQuery();
+            $result->fetchAllAssociative();
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $best_confidence;
     }
 }

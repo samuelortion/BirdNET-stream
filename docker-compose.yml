@@ -1,36 +1,119 @@
-version: '3.8'
-
-networks:
-  birdnet_network:
+version: '3.9'
 
 services:
-  # database:
-  #   container_name: birdnet_database
-  #   image:
+  # recording: 
+  #   container_name: birdnet_recording
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/recording/Dockerfile
+  #   restart: unless-stopped
+  #   environment:
+  #     - CHUNK_FOLDER=${CHUNK_FOLDER:-/media/birdnet/records}
+  #   volumes:
+  #     - ${RECORDS_DIR:-/media/birdnet/records}:${RECORS_FOLDER:-/media/birdnet/records}
+  #   # Allow container to access to the hosts microphone
+  #   devices:
+  #     - /dev/snd:/dev/snd
+  # analyzer:
+  #   container_name: birdnet_analyzer
+  #   build:
+  #     context: ./analyzer/
+  #     dockerfile: ./Dockerfile
 
-  php:
-    container_name: birdnet_php
-    image: php:8.1-fpm
+  db:
+    container_name: birdnet_database
+    image: mariadb:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - "${PHP_FPM_PORT:-9001}:9000"
+      - ${DATABASE_PORT:-3306}:3306
+    networks:
+      - birdnet_network
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-secret}'
+      MYSQL_USER: ${DATABASE_USER:-birdnet}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD:-secret}
+    volumes:
+      - ./docker/database/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
 
+  php-fpm:
+    container_name: birdnet_php-fpm
+    build:
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
+    ports:
+      - '${PHP_FPM_PORT:-9000}:9000'
+    networks:
+      - birdnet_network
+    environment:
+      - APP_ENV=${APP_ENV:-prod}
+      - APP_DEBUG=${APP_DEBUG:-true}
+      - DATABASE_DEFAULT_URL=mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-birdnet_database}:${DATABASE_PORT:-3306}/birdnet_default
+      - DATABASE_OBSERVATIONS_URL=mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-birdnet_database}:${DATABASE_PORT:-3306}/birdnet_observations
+    restart: unless-stopped
+    volumes:
+      - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
+
+  symfony:
+    container_name: birdnet_symfony
+    networks:
+      - birdnet_network
+    build:
+      context: .
+      dockerfile: ./docker/symfony/Dockerfile
+      args:
+        - DATABASE_DEFAULT_URL=mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-birdnet_database}:${DATABASE_PORT:-3306}/birdnet_default
+        - DATABASE_OBSERVATIONS_URL=mysql://${DATABASE_USER:-birdnet}:${DATABASE_PASSWORD:-secret}@${DATABASE_HOST:-birdnet_database}:${DATABASE_PORT:-3306}/birdnet_observations
+        - RECORDS_DIR=/media/birdnet/records
+        - CHARTS_DIR=/media/birdnet/charts
+    restart: on-failure
+    volumes:
+      - birdnet_app:${PROJECT_ROOT:-/opt/birdnet}
+      - birdnet_records:${RECORDS_DIR:-/media/birdnet/records}
+    depends_on:
+      - db
 
   nginx:
     container_name: birdnet_nginx
+    hostname: ${SERVER_NAME:-birdnet.local}
     build:
-      context: ./docker/
-    environment:
-      SERVER_NAME: ${SERVER_NAME:-birdnet.local}
-      PHP_FPM_PORT: ${PHP_FPM_PORT:-9001}
-    restart: unless-stopped
-    volumes:
-      - ./www:/var/www/birdnet/
-      - ./www/nginx.conf:/etc/nginx/conf.d/birdnet.conf
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+      args:
+        - SERVER_NAME=${SERVER_NAME:-birnet.local}
+        - SYMFONY_PUBLIC=/opt/birdnet/www/public
+        - CHARTS_DIR=/media/birdnet/charts
+        - RECORDS_DIR=/media/birdnet/records
+        - PHP_FPM_HOST=birdnet_php-fpm
+        - PHP_FPM_PORT=9000
     ports:
-      - "81:80"
-    dependends_on:
-      - php
+      - ${HTTP_PORT:-80}:80
+      - ${HTTPS_PORT:-443}:443
+    volumes:
+      - birdnet_app:/opt/birdnet
+      - birdnet_records:/media/data/records
+    networks:
+      birdnet_network:
+        ipv4_address: ${IP_ADDRESS:-172.25.0.101}
+        aliases:
+          - ${SERVER_NAME:-birdnet.local}
+    restart: unless-stopped
+    depends_on:
+      - symfony
+      - php-fpm
 
-  birdnet:
-    container_name: birdnet_analyzer
-    image: 
+networks:
+  birdnet_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${IP_SUBNET:-172.25.0.0/24}
+
+volumes:
+  birdnet_app:
+
+  birdnet_records:
+    driver_opts:
+      type: none
+      device: ${RECORDS_DIR:-/media/data/records}
+      o: bind

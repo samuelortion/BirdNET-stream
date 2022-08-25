@@ -8,10 +8,30 @@ source ./config/birdnet.conf
 # Create database in case it was not created yet
 ./daemon/database/scripts/create.sh
 
-DATABASE=${DATABASE:-"./var/db.sqlite"}
+# Check if database location is specified
+if [ -z "$DATABASE" ]; then
+    echo "DATABASE location not specified"
+    echo "Defaults to ./var/db.sqlite"
+    DATABASE="./var/db.sqlite"
+fi
 
 query() {
-    sqlite3 -cmd ".timeout 1000" $DATABASE "$1"
+    local stmt
+    stmt="$1"
+    if [[ $DATABASE = "mysql://"* ]]; then
+        # Split mysql uri into user, password, host, port, and database
+        MYSQL_ADDRESS=$(echo "$DATABASE" | sed 's/mysql:\/\///g')
+        MYSQL_CREDENTIALS=$(echo "$MYSQL_ADDRESS" | cut -d@ -f1)
+        MYSQL_USER=$(echo "$MYSQL_CREDENTIALS" | cut -d: -f1)
+        MYSQL_PASSWORD=$(echo "$MYSQL_CREDENTIALS" | cut -d: -f2)
+        MYSQL_HOST=$(echo "$MYSQL_ADDRESS" | cut -d@ -f2 | cut -d: -f1)
+        MYSQL_PORT=$(echo "$MYSQL_ADDRESS" | cut -d@ -f2 | cut -d: -f2 | cut -d/ -f1)
+        MYSQL_DATABASE=$(echo "$MYSQL_ADDRESS" | cut -d/ -f2)
+        mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -h$MYSQL_HOST -P$MYSQL_PORT -D$MYSQL_DATABASE -e "$stmt"
+    else
+        sqlite3 -cmd ".timeout 1000" "$DATABASE" "$stmt"
+    fi
+
 }
 
 get_location_id() {
